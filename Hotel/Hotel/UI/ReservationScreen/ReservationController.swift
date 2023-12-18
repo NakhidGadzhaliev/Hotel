@@ -8,14 +8,19 @@
 import SwiftUI
 
 final class ReservationController: UIHostingController<ReservationView> {
+    private enum Constants {
+        static let title = "Бронирование"
+        static let failed = "Failed ReservationController"
+    }
+    
     init(viewModel: ReservationViewModel) {
         super.init(rootView: ReservationView(viewModel: viewModel))
-        title = "Бронирование"
+        title = Constants.title
         navigationItem.backButtonDisplayMode = .minimal
     }
     
     @MainActor required dynamic init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        assertionFailure("Failed ReservationController")
+        assertionFailure(Constants.failed)
     }
 }

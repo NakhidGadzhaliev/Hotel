@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct NumbersBaseTextField: View {
+    @Binding var text: String
     let title: String
     let mask: String
-    @State var text = ""
     
     var body: some View {
         VStack {
@@ -73,14 +73,10 @@ private struct TextFieldContainer: UIViewRepresentable {
         }
         
         @objc func textFieldDidChange(_ textField: UITextField) {
-            self.parent.text.wrappedValue = textField.text ?? ""
+            self.parent.text.wrappedValue = textField.text ?? .empty
             
             let newPosition = textField.endOfDocument
             textField.selectedTextRange = textField.textRange(from: newPosition, to: newPosition)
         }
     }
-}
-
-#Preview {
-    NumbersBaseTextField(title: "Дата рождения", mask: "XX-XX-XXXX")
 }

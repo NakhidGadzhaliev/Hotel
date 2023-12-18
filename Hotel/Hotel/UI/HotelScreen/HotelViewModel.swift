@@ -11,18 +11,19 @@ import Combine
 final class HotelViewModel: ObservableObject {
     @Published var hotel = Hotel(
         id: .zero,
-        name: "",
-        adress: "",
+        name: .empty,
+        adress: .empty,
         minimalPrice: .zero,
-        priceForIt: "",
+        priceForIt: .empty,
         rating: .zero,
-        ratingName: "",
+        ratingName: .empty,
         imageUrls: [],
-        aboutTheHotel: AboutTheHotel(description: "", peculiarities: [])
+        aboutTheHotel: AboutTheHotel(description: .empty, peculiarities: [])
     )
     @Published var isRequestFailed = true
     @Published var isLoading = false
     @Published var error: Error?
+    
     private var cancellables: Set<AnyCancellable> = []
     private let coordinator: HotelCoordinator
     private let networkManager: NetworkManager

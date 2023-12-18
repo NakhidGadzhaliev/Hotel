@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct ImageSlider: View {
+    private enum Constants {
+        static let unknownError = "Unknown error"
+    }
+    
     let imageUrls: [String]
     
     var body: some View {
@@ -27,7 +31,7 @@ struct ImageSlider: View {
                         case .failure:
                             Image(systemSymbol: .photo)
                         @unknown default:
-                            fatalError("Unknown error")
+                            fatalError(Constants.unknownError)
                         }
                     }
                 }

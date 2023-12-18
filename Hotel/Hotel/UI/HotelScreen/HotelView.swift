@@ -8,12 +8,17 @@
 import SwiftUI
 
 struct HotelView: View {
+    private enum Constants {
+        static let pageLoading = "Загрузка страницы"
+        static let chooseNumber = "К выбору номера"
+    }
+    
     @ObservedObject var viewModel: HotelViewModel
     
     var body: some View {
         ZStack(alignment: .bottom) {
             if viewModel.isLoading {
-                ProgressView("Page is loading")
+                ProgressView(Constants.pageLoading)
             } else if let _ = viewModel.error {
                 FailView()
             } else {
@@ -46,7 +51,7 @@ struct HotelView: View {
                 .padding(.bottom, 60)
                 ZStack {
                     PrimaryButton(
-                        title: "К выбору номера",
+                        title: Constants.chooseNumber,
                         action: { viewModel.openRoomScreen(with: viewModel.hotel.name) }
                     )
                     .padding(.horizontal, 16)
@@ -62,12 +67,16 @@ struct HotelView: View {
 }
 
 private struct DetailInfoView: View {
+    private enum Constants {
+        static let aboutHotel = "Об отеле"
+    }
+    
     let peculiarities: [String]
     let description: String
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Об отеле")
+            Text(Constants.aboutHotel)
                 .font(Font.Medium.m22)
                 .foregroundStyle(.black)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -91,19 +100,26 @@ private struct DetailInfoView: View {
 }
 
 private struct AdditionalInfoView: View {
+    private enum Constants {
+        static let facilities = "Удобства"
+        static let essentials = "Самое необходимое"
+        static let included = "Что включено"
+        static let notIncluded = "Что не включено"
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
-            AdditionalInfoItemView(icon: Image(asset: .emojiHappy), title: "Удобства", description: "Самое необходимое")
+            AdditionalInfoItemView(icon: Image(asset: .emojiHappy), title: Constants.facilities, description: Constants.essentials)
             Divider()
                 .background(Color.customDarkGray)
                 .padding(.trailing, 31)
                 .padding(.leading, 69)
-            AdditionalInfoItemView(icon: Image(asset: .tickSquare), title: "Что включено", description: "Самое необходимое")
+            AdditionalInfoItemView(icon: Image(asset: .tickSquare), title: Constants.included, description: Constants.essentials)
             Divider()
                 .background(Color.customDarkGray)
                 .padding(.trailing, 31)
                 .padding(.leading, 69)
-            AdditionalInfoItemView(icon: Image(asset: .closeSquare), title: "Что не включено", description: "Самое необходимое")
+            AdditionalInfoItemView(icon: Image(asset: .closeSquare), title: Constants.notIncluded, description: Constants.essentials)
         }
     }
 }

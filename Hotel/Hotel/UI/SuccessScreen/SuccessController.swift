@@ -8,13 +8,18 @@
 import SwiftUI
 
 final class SuccessController: UIHostingController<SuccessView> {
+    private enum Constants {
+        static let orderPaid = "Заказ оплачен"
+        static let failed = "Failed SuccessController"
+    }
+    
     init(viewModel: SuccessViewModel) {
         super.init(rootView: SuccessView(viewModel: viewModel))
-        title = "Заказ оплачен"
+        title = Constants.orderPaid
     }
     
     @MainActor required dynamic init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        assertionFailure("Failed SuccessController")
+        assertionFailure(Constants.failed)
     }
 }

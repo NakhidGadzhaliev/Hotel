@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct SuccessView: View {
+    private enum Constants {
+        static let orderIsAccepted = "Ваш заказ принят в работу"
+        static let confirmation = "Подтверждение заказа №104893 может занять некоторое время (от 1 часа до суток). \n Как только мы получим ответ от туроператора, вам на почту придет уведомление."
+        static let superText = "Супер!"
+    }
     @ObservedObject var viewModel: SuccessViewModel
     
     var body: some View {
@@ -22,10 +27,10 @@ struct SuccessView: View {
                     .frame(width: 44, height: 44)
             }
             VStack(spacing: 20) {
-                Text("Ваш заказ принят в работу")
+                Text(Constants.orderIsAccepted)
                     .font(Font.Medium.m22)
                     .foregroundStyle(.black)
-                Text("Подтверждение заказа №104893 может занять некоторое время (от 1 часа до суток). \n Как только мы получим ответ от туроператора, вам на почту придет уведомление.")
+                Text(Constants.confirmation)
                     .multilineTextAlignment(.center)
                     .font(Font.Default.d16)
                     .foregroundStyle(.customDarkGray)
@@ -33,7 +38,7 @@ struct SuccessView: View {
             Spacer()
             ZStack {
                 PrimaryButton(
-                    title: "Супер!",
+                    title: Constants.superText,
                     action: { viewModel.backToRootScreen() }
                 )
             }

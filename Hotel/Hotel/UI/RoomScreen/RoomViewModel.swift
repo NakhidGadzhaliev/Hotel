@@ -13,6 +13,7 @@ final class RoomViewModel: ObservableObject {
     @Published var isRequestFailed = true
     @Published var isLoading = false
     @Published var error: Error?
+    
     private var cancellables: Set<AnyCancellable> = []
     private let networkManager: NetworkManager
     private let coordinator: RoomCoordinator

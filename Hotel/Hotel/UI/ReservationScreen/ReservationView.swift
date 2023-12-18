@@ -8,14 +8,25 @@
 import SwiftUI
 
 struct ReservationView: View {
+    private enum Constants {
+        static let pageLoading = "Загрузка страницы"
+        static let pay = "Оплатить"
+    }
+    
     @ObservedObject var viewModel: ReservationViewModel
-    @State var email: String = ""
-    @State var addButtonHidden = false
+    @State private var email: String = .empty
+    @State private var name: String = .empty
+    @State private var lastName: String = .empty
+    @State private var birthDate: String = .empty
+    @State private var citizenship: String = .empty
+    @State private var passportNumber: String = .empty
+    @State private var validityPeriod: String = .empty
+    @State private var addButtonHidden = false
     
     var body: some View {
         ZStack(alignment: .bottom) {
             if viewModel.isLoading {
-                ProgressView("Page is loading")
+                ProgressView(Constants.pageLoading)
             } else if let _ = viewModel.error {
                 FailView()
             } else {
@@ -47,15 +58,24 @@ struct ReservationView: View {
                             nutrition: viewModel.reservation.nutrition
                         )
                         
-                        BuyerInfoView(email: email, validationRule: viewModel.isValidEmail)
+                        BuyerInfoView(email: $email, validationRule: viewModel.isValidEmail)
                         
                         ForEach(viewModel.tourists, id: \.self) { item in
-                            TouristInfoView(validationRule: viewModel.isTextValid, title: item)
-                                .padding(16)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .foregroundStyle(.white)
-                                )
+                            TouristInfoView(
+                                name: name,
+                                lastName: lastName,
+                                birthDate: birthDate,
+                                citizenship: citizenship,
+                                passportNumber: passportNumber,
+                                validityPeriod: validityPeriod,
+                                validationRule: viewModel.isTextValid,
+                                title: item
+                            )
+                            .padding(16)
+                            .background(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .foregroundStyle(.white)
+                            )
                         }
                         
                         AddTouristSectionView(onButtonTap: viewModel.addTourist)
@@ -70,15 +90,17 @@ struct ReservationView: View {
                 }
                 .background(Color.customGray)
                 .padding(.bottom, 60)
+                
                 ZStack {
                     PrimaryButton(
-                        title: "Оплатить",
+                        title: Constants.pay,
                         action: { viewModel.openSuccessScreen() }
                     )
                     .padding(.horizontal, 16)
                     .padding(.top, 12)
                 }
                 .background(Color.white)
+                
             }
         }
         .onAppear {
@@ -88,6 +110,13 @@ struct ReservationView: View {
 }
 
 private struct TotalPriceView: View {
+    private enum Constants {
+        static let tour = "Тур"
+        static let fuelCharge = "Топливный сбор"
+        static let serviceCharge = "Сервисный сбор"
+        static let toPay = "К оплате"
+    }
+    
     let tourPrice: Int
     let fuelCharge: Int
     let serviceCharge: Int
@@ -95,15 +124,15 @@ private struct TotalPriceView: View {
     
     var body: some View {
         VStack(spacing: 16) {
-            PriceItemView(title: "Тур", price: tourPrice * touristsCount)
-            PriceItemView(title: "Топливный сбор", price: fuelCharge * touristsCount)
-            PriceItemView(title: "Сервисный сбор", price: serviceCharge * touristsCount)
+            PriceItemView(title: Constants.tour, price: tourPrice * touristsCount)
+            PriceItemView(title: Constants.fuelCharge, price: fuelCharge * touristsCount)
+            PriceItemView(title: Constants.serviceCharge, price: serviceCharge * touristsCount)
             HStack {
-                Text("К оплате")
+                Text(Constants.toPay)
                     .font(Font.Default.d16)
                     .foregroundStyle(Color.customDarkGray)
                     .frame(maxWidth: 150, alignment: .leading)
-                Text("\(totalPriceCounter()) ₽")
+                Text("\(totalPriceCounter()) \(String.currency)")
                     .font(Font.Semibold.s16)
                     .foregroundStyle(.customBlue)
                     .frame(maxWidth: .infinity, alignment: .trailing)
@@ -123,28 +152,35 @@ private struct TotalPriceView: View {
 }
 
 private struct BuyerInfoView: View {
-    let email: String
+    private enum Constants {
+        static let aboutBuyer = "Информация о покупателе"
+        static let number = "Номер телефона"
+        static let email = "Почта"
+        static let description = "Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту"
+    }
+    
+    @Binding var email: String
     let validationRule: (_ value: String) -> Bool
     
     var body: some View {
         
         VStack(alignment: .leading, spacing: 20) {
-            Text("Информация о покупателе")
+            Text(Constants.aboutBuyer)
                 .font(Font.Medium.m22)
                 .foregroundStyle(.black)
                 .frame(maxWidth: .infinity, alignment: .leading)
             VStack(spacing: 8) {
-                PhoneNumberTextField(title: "Номер телефона")
+                PhoneNumberTextField(title: Constants.number)
                 
                 BaseTextField(
-                    text: email,
-                    title: "Почта",
+                    text: $email,
+                    validationRule: validationRule,
+                    title: Constants.email,
                     keyboardType: .emailAddress,
-                    capitalization: .never,
-                    validationRule: validationRule
+                    capitalization: .never
                 )
                 
-                Text("Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту")
+                Text(Constants.description)
                     .font(Font.Medium.m14)
                     .foregroundStyle(.customDarkGray)
             }
@@ -158,11 +194,15 @@ private struct BuyerInfoView: View {
 }
 
 private struct AddTouristSectionView: View {
+    private enum Constants {
+        static let addTourist = "Добавить туриста"
+    }
+    
     let onButtonTap: Closure.Void
     
     var body: some View {
         HStack {
-            Text("Добавить туриста")
+            Text(Constants.addTourist)
                 .font(Font.Medium.m22)
                 .foregroundStyle(.black)
             Spacer()
@@ -186,6 +226,16 @@ private struct AddTouristSectionView: View {
 }
 
 private struct ReservationInfoView: View {
+    private enum Constants {
+        static let departure = "Вылет из"
+        static let arrivalCountry = "Страна, город"
+        static let date = "Даты"
+        static let numberOfNights = "Кол-во ночей"
+        static let hotel = "Отель"
+        static let room = "Номер"
+        static let nutrition = "Питание"
+    }
+    
     let departure: String
     let arrivalCountry: String
     let startDate: String
@@ -198,31 +248,31 @@ private struct ReservationInfoView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             ReservationInfoItemView(
-                title: "Вылет из",
+                title: Constants.departure,
                 info: departure
             )
             ReservationInfoItemView(
-                title: "Страна, город",
+                title: Constants.arrivalCountry,
                 info: arrivalCountry
             )
             ReservationInfoItemView(
-                title: "Даты",
-                info: startDate + " - " + endDate
+                title: Constants.date,
+                info: startDate + " \(String.minus) " + endDate
             )
             ReservationInfoItemView(
-                title: "Кол-во ночей",
+                title: Constants.numberOfNights,
                 info: "\(numberOfNights)"
             )
             ReservationInfoItemView(
-                title: "Отель",
+                title: Constants.hotel,
                 info: hotelName
             )
             ReservationInfoItemView(
-                title: "Номер",
+                title: Constants.room,
                 info: room
             )
             ReservationInfoItemView(
-                title: "Питание",
+                title: Constants.nutrition,
                 info: nutrition
             )
         }
@@ -243,7 +293,7 @@ private struct PriceItemView: View {
             Text(title)
                 .foregroundStyle(Color.customDarkGray)
                 .frame(maxWidth: 150, alignment: .leading)
-            Text("\(price) ₽")
+            Text("\(price) \(String.currency)")
                 .foregroundStyle(.black)
                 .frame(maxWidth: .infinity, alignment: .trailing)
         }
@@ -268,13 +318,20 @@ private struct ReservationInfoItemView: View {
 }
 
 private struct PhoneNumberTextField: View {
+    private enum Constants {
+        static let mask = "+X (XXX) XXX-XX-XX"
+        static let seven = "+7"
+    }
+    
+    @State var numberText = Constants.seven
+    
     let title: String
     
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
                 .foregroundStyle(.customGray)
-            NumbersBaseTextField(title: title, mask: "+X (XXX) XXX-XX-XX", text: "+7")
+            NumbersBaseTextField(text: $numberText, title: title, mask: Constants.mask)
         }
         .frame(height: 52)
     }

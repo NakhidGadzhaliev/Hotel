@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct RoomView: View {
+    private enum Constants {
+        static let pageLoading = "Загрузка страницы"
+    }
+    
     @ObservedObject var viewModel: RoomViewModel
     
     var body: some View {
         ZStack(alignment: .bottom) {
             if viewModel.isLoading {
-                ProgressView("Page is loading")
+                ProgressView(Constants.pageLoading)
             } else if let _ = viewModel.error {
                 FailView()
             } else {
@@ -38,6 +42,11 @@ struct RoomView: View {
 }
 
 private struct RoomItemView: View {
+    private enum Constants {
+        static let details = "Подробнее о номере"
+        static let chooseRoom = "Выбрать номер"
+    }
+    
     let room: RoomElement
     let onButtonTap: Closure.Void
     
@@ -55,7 +64,7 @@ private struct RoomItemView: View {
                 //
             }, label: {
                 HStack(spacing: 2) {
-                    Text("Подробнее о номере")
+                    Text(Constants.details)
                     Image(systemSymbol: .chevronRight)
                 }
                 .font(Font.Medium.m16)
@@ -67,7 +76,7 @@ private struct RoomItemView: View {
             })
             .disabled(true)
             
-            Text("\(room.price) ₽ ")
+            Text("\(room.price) \(String.currency) ")
                 .font(Font.Semibold.s30)
                 .foregroundStyle(.black)
             +
@@ -76,7 +85,7 @@ private struct RoomItemView: View {
                 .font(Font.Default.d16)
             
             PrimaryButton(
-                title: "Выбрать номер",
+                title: Constants.chooseRoom,
                 action: onButtonTap
             )
             

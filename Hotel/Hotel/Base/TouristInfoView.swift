@@ -8,54 +8,47 @@
 import SwiftUI
 
 struct TouristInfoView: View {
-    @State private var isExpanded: Bool = false
-    @State private var name: String = ""
-    @State private var lastName: String = ""
-    @State private var birthDate: String = ""
-    @State private var citizenship: String = ""
-    @State private var passportNumber: String = ""
-    @State private var validityPeriod: String = ""
-    let validationRule: (_ value: String) -> Bool
+    private enum Constants {
+        static let name = "Имя"
+        static let lastName = "Фамилия"
+        static let birthDate = "Дата рождения"
+        static let dateMask = "XX.XX.XXXX"
+        static let citizenship = "Гражданство"
+        static let passportNumber = "Номер загранпаспорта"
+        static let passportExporationDate = "Срок действия загранпаспорта"
+    }
     
+    @State private var isExpanded: Bool = false
+    @State var name: String
+    @State var lastName: String
+    @State var birthDate: String
+    @State var citizenship: String
+    @State var passportNumber: String
+    @State var validityPeriod: String
+    
+    let validationRule: (_ value: String) -> Bool
     let title: String
     
     var body: some View {
         VStack {
             DisclosureGroup(title, isExpanded: $isExpanded) {
                 VStack(alignment: .leading, spacing: 8) {
-                    BaseTextField(
-                        text: name,
-                        title: "Имя",
-                        validationRule: validationRule
-                    )
+                    BaseTextField(text: $name, validationRule: validationRule, title: Constants.name)
+                    BaseTextField(text: $lastName, validationRule: validationRule, title: Constants.lastName)
+                    DateTextField(text: $birthDate, title: Constants.birthDate, mask: Constants.dateMask)
+                    BaseTextField(text: $citizenship, validationRule: validationRule, title: Constants.citizenship)
                     
                     BaseTextField(
-                        text: lastName,
-                        title: "Фамилия",
-                        validationRule: validationRule
+                        text: $passportNumber,
+                        validationRule: validationRule,
+                        title: Constants.passportNumber,
+                        keyboardType: .numberPad
                     )
                     
                     DateTextField(
-                        title: "Дата рождения",
-                        mask: "XX.XX.XXXX"
-                    )
-                    
-                    BaseTextField(
-                        text: citizenship,
-                        title: "Гражданство",
-                        validationRule: validationRule
-                    )
-                    
-                    BaseTextField(
-                        text: passportNumber,
-                        title: "Номер загранпаспорта",
-                        keyboardType: .numberPad,
-                        validationRule: validationRule
-                    )
-                    
-                    DateTextField(
-                        title: "Срок действия загранпаспорта",
-                        mask: "XX.XX.XXXX"
+                        text: $validityPeriod,
+                        title: Constants.passportExporationDate,
+                        mask: Constants.dateMask
                     )
                 }
             }
@@ -77,18 +70,12 @@ private struct TouristDisclosureStyle: DisclosureGroupStyle {
                         .frame(width: 32, height: 32)
                         .foregroundStyle(.customLightBlue)
                     if configuration.isExpanded {
-                        Image(systemSymbol: .chevronUp)
-                            .resizable()
-                            .frame(width: 12, height: 6)
-                            .foregroundStyle(.customBlue)
+                        DisclosureIconView(image: .chevronUp)
                             .onTapGesture {
                                 configuration.isExpanded.toggle()
                             }
                     } else {
-                        Image(systemSymbol: .chevronDown)
-                            .resizable()
-                            .frame(width: 12, height: 6)
-                            .foregroundStyle(.customBlue)
+                        DisclosureIconView(image: .chevronDown)
                             .onTapGesture {
                                 configuration.isExpanded.toggle()
                             }
@@ -103,7 +90,19 @@ private struct TouristDisclosureStyle: DisclosureGroupStyle {
     }
 }
 
+private struct DisclosureIconView: View {
+    let image: SFSymbolIdentifier
+    
+    var body: some View {
+        Image(systemSymbol: image)
+            .resizable()
+            .frame(width: 12, height: 6)
+            .foregroundStyle(.customBlue)
+    }
+}
+
 private struct DateTextField: View {
+    @Binding var text: String
     let title: String
     let mask: String
     
@@ -111,12 +110,8 @@ private struct DateTextField: View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
                 .foregroundStyle(.customGray)
-            NumbersBaseTextField(title: title, mask: mask)
+            NumbersBaseTextField(text: $text, title: title, mask: mask)
         }
         .frame(height: 52)
     }
 }
-//
-//#Preview{
-//    TouristInfoView(title: "First")
-//}

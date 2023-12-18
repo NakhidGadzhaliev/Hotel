@@ -8,28 +8,47 @@
 import SwiftUI
 import Combine
 
+struct Tourist: Identifiable {
+    let id = UUID()
+    let number: String
+    let isValidated: Bool
+}
+
 final class ReservationViewModel: ObservableObject {
+    private enum Constants {
+        static let firstTourist = "Первый турист"
+        static let tourist = "турист"
+        static let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        static let format = "SELF MATCHES %@"
+        static let first = "Первый"
+        static let second = "Второй"
+        static let third = "Третий"
+        static let fourth = "Четвертый"
+        static let fifth = "Пятый"
+    }
+    
     @Published var reservation = Reservation(
         id: .zero,
-        hotelName: "",
-        hotelAdress: "",
+        hotelName: .empty,
+        hotelAdress: .empty,
         horating: .zero,
-        ratingName: "",
-        departure: "",
-        arrivalCountry: "",
-        tourDateStart: "",
-        tourDateStop: "",
+        ratingName: .empty,
+        departure: .empty,
+        arrivalCountry: .empty,
+        tourDateStart: .empty,
+        tourDateStop: .empty,
         numberOfNights: .zero,
-        room: "",
-        nutrition: "",
+        room: .empty,
+        nutrition: .empty,
         tourPrice: .zero,
         fuelCharge: .zero,
         serviceCharge: .zero
     )
-    @Published var tourists: [String] = ["Первый турист"]
+    @Published var tourists: [String] = [Constants.firstTourist]
     @Published var isRequestFailed = true
     @Published var isLoading = false
     @Published var error: Error?
+    
     private var cancellables: Set<AnyCancellable> = []
     private let coordinator: ReservationCoordinator
     private let networkManager: NetworkManager
@@ -64,7 +83,7 @@ final class ReservationViewModel: ObservableObject {
     
     func addTourist() {
         let newElement = numberString(for: tourists.count)
-        tourists.append("\(newElement) турист")
+        tourists.append("\(newElement) \(Constants.tourist)")
     }
     
     func isTextValid(_ value: String) -> Bool {
@@ -72,19 +91,19 @@ final class ReservationViewModel: ObservableObject {
     }
     
     func isValidEmail(_ value: String) -> Bool {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        let emailRegex = Constants.emailRegex
+        let emailPredicate = NSPredicate(format: Constants.format, emailRegex)
         return emailPredicate.evaluate(with: value)
     }
     
     private func numberString(for index: Int) -> String {
         let number = index + 1
         switch number {
-        case 1: return "Первый"
-        case 2: return "Второй"
-        case 3: return "Третий"
-        case 4: return "Четвертый"
-        case 5: return "Пятый"
+        case 1: return Constants.first
+        case 2: return Constants.second
+        case 3: return Constants.third
+        case 4: return Constants.fourth
+        case 5: return Constants.fifth
         default: return "\(number)-й"
         }
     }

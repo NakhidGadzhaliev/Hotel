@@ -27,5 +27,5 @@ struct AdvantagesView: View {
 }
 
 #Preview {
-    AdvantagesView(peculiarities: ["ssdhgjdssdgsdkshghk", "sajdsh", "asf", "gjdshkghsdjgs", "ssdhgjdssdgsdkshghk", "sajdsh", "asf", "gjdshkghsdjgs"])
+    AdvantagesView(peculiarities: [])
 }

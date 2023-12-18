@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct BaseTextField: View {
-    @State var text: String = ""
+    @Binding var text: String
     @FocusState var isFocused: Bool
-    @State private var isValidValue: Bool = true
+    @State var isValidValue: Bool = true
+    
+    let validationRule: (_ value: String) -> Bool
     let title: String
     var keyboardType: UIKeyboardType = .default
     var capitalization: TextInputAutocapitalization = .words
-    let validationRule: (_ value: String) -> Bool
     
     var body: some View {
         ZStack {
@@ -35,7 +36,7 @@ struct BaseTextField: View {
                     TextFieldTitleView(title: title)
                         .font(Font.Default.d12)
                 }
-                TextField("", text: $text)
+                TextField(String.empty, text: $text)
                     .font(Font.Default.d17)
                     .focused($isFocused)
                     .keyboardType(.emailAddress)
@@ -48,6 +49,7 @@ struct BaseTextField: View {
             .padding(.horizontal, 16)
         }
         .frame(height: 52)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }
 
@@ -60,7 +62,3 @@ private struct TextFieldTitleView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
-
-//#Preview {
-//    BaseTextField(title: "dsgsd")
-//}

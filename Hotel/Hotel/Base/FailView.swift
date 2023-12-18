@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct FailView: View {
+    private enum Constants {
+        static let noConnection = "Нет подключения к сети"
+        static let tryReload = "Пожалуйста, попробуйте перезагрузить приложение"
+    }
+    
     var body: some View {
         VStack(spacing: 57) {
             Spacer()
@@ -20,10 +25,10 @@ struct FailView: View {
                     .frame(width: 44, height: 44)
             }
             VStack(spacing: 20) {
-                Text("Нет подключения к сети")
+                Text(Constants.noConnection)
                     .font(Font.Medium.m22)
                     .foregroundStyle(.black)
-                Text("Пожалуйста, попробуйте перезагрузить приложение")
+                Text(Constants.tryReload)
                     .multilineTextAlignment(.center)
                     .font(Font.Default.d16)
                     .foregroundStyle(.customDarkGray)

@@ -18,6 +18,7 @@ final class NetworkManager {
         static let roomUrl = "https://run.mocky.io/v3/8b532701-709e-4194-a41c-1a903af00195"
         static let reservationUrl = "https://run.mocky.io/v3/63866c74-d593-432c-af8e-f279d1a8d2ff"
     }
+    
     func fetchHotel() -> AnyPublisher<Hotel, Error> {
         fetchData(
             url: Constant.hotelUrl,

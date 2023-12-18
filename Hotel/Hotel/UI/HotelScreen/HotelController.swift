@@ -8,15 +8,20 @@
 import SwiftUI
 
 final class HotelController: UIHostingController<HotelView> {
+    private enum Constants {
+        static let hotel = "Отель"
+        static let failed = "Failed HotelController"
+    }
+    
     init(viewModel: HotelViewModel) {
         super.init(rootView: HotelView(viewModel: viewModel))
-        title = "Отель"
+        title = Constants.hotel
         navigationItem.backButtonDisplayMode = .minimal
         UINavigationBar.appearance().tintColor = .black
     }
     
     @MainActor required dynamic init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        assertionFailure("Failed HotelController")
+        assertionFailure(Constants.failed)
     }
 }

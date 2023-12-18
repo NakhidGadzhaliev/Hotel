@@ -8,6 +8,10 @@
 import SwiftUI
 
 final class RoomController: UIHostingController<RoomView> {
+    private enum Constants {
+        static let failed = "Failed RoomController"
+    }
+    
     init(viewModel: RoomViewModel, with title: String) {
         super.init(rootView: RoomView(viewModel: viewModel))
         self.title = title
@@ -16,6 +20,6 @@ final class RoomController: UIHostingController<RoomView> {
     
     @MainActor required dynamic init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        assertionFailure("Failed RoomController")
+        assertionFailure(Constants.failed)
     }
 }
