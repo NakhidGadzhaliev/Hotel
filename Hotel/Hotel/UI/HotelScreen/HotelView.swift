@@ -81,7 +81,7 @@ private struct DetailInfoView: View {
                 .foregroundStyle(.black)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            AdvantagesView(peculiarities: peculiarities)
+            PeculiaritiesView(peculiarities: peculiarities)
             
             Text(description)
                 .font(Font.Default.d16)
@@ -109,17 +109,29 @@ private struct AdditionalInfoView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            AdditionalInfoItemView(icon: Image(asset: .emojiHappy), title: Constants.facilities, description: Constants.essentials)
+            AdditionalInfoItemView(
+                icon: Image(asset: .emojiHappy),
+                title: Constants.facilities,
+                description: Constants.essentials
+            )
             Divider()
                 .background(Color.customDarkGray)
                 .padding(.trailing, 31)
                 .padding(.leading, 69)
-            AdditionalInfoItemView(icon: Image(asset: .tickSquare), title: Constants.included, description: Constants.essentials)
+            AdditionalInfoItemView(
+                icon: Image(asset: .tickSquare),
+                title: Constants.included,
+                description: Constants.essentials
+            )
             Divider()
                 .background(Color.customDarkGray)
                 .padding(.trailing, 31)
                 .padding(.leading, 69)
-            AdditionalInfoItemView(icon: Image(asset: .closeSquare), title: Constants.notIncluded, description: Constants.essentials)
+            AdditionalInfoItemView(
+                icon: Image(asset: .closeSquare),
+                title: Constants.notIncluded,
+                description: Constants.essentials
+            )
         }
     }
 }
@@ -171,7 +183,7 @@ private struct MainInfoView: View {
                 ratingName: ratingName
             )
             
-            Text("от \(price) ₽ ")
+            Text("от \(price) \(String.currency) ")
                 .font(Font.Semibold.s30)
                 .foregroundStyle(.black)
             +

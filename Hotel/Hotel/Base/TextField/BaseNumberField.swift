@@ -1,5 +1,5 @@
 //
-//  NumbersBaseTextField.swift
+//  BaseNumberField.swift
 //  Hotel
 //
 //  Created by Нахид Гаджалиев on 18.12.2023.
@@ -7,21 +7,31 @@
 
 import SwiftUI
 
-struct NumbersBaseTextField: View {
+struct BaseNumberField: View {
     @Binding var text: String
+    @State private var color: Color = .customGray
+    
     let title: String
     let mask: String
+    let isValidated: Bool
     
     var body: some View {
-        VStack {
-            let textChangedBinding = Binding<String>(
-                get: {
-                    FilterNumberPhone.format(with: self.mask, phone: self.text)},
-                
-                set: { self.text = $0
-                })
-            TextFieldContainer(title, text: textChangedBinding)
-        }.padding()
+        let textChangedBinding = Binding<String>(
+            get: {
+                FilterNumberPhone.format(with: self.mask, phone: self.text)},
+            
+            set: { self.text = $0
+            })
+        
+        TextFieldContainer(title, text: textChangedBinding)
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .foregroundStyle(color)
+            )
+            .onChange(of: text) {
+                color = isValidated ? Color.customGray : Color(hex: "#EB5757").opacity(0.15)
+            }
     }
 }
 
@@ -30,10 +40,10 @@ private struct TextFieldContainer: UIViewRepresentable {
         .foregroundColor: UIColor.customDarkGray,
         .font: UIFont.systemFont(ofSize: 17)
     ]
-    private var placeholder : String
-    private var text : Binding<String>
+    private var placeholder: String
+    private var text: Binding<String>
     
-    init(_ placeholder:String, text:Binding<String>) {
+    init(_ placeholder:String, text: Binding<String>) {
         self.placeholder = placeholder
         self.text = text
     }

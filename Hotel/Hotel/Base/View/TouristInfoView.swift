@@ -2,7 +2,7 @@
 //  TouristInfoView.swift
 //  Hotel
 //
-//  Created by Нахид Гаджалиев on 16.12.2023.
+//  Created by Нахид Гаджалиев on 19.12.2023.
 //
 
 import SwiftUI
@@ -18,36 +18,31 @@ struct TouristInfoView: View {
         static let passportExporationDate = "Срок действия загранпаспорта"
     }
     
+    @Binding var tourist: Tourist
     @State private var isExpanded: Bool = false
-    @State var name: String
-    @State var lastName: String
-    @State var birthDate: String
-    @State var citizenship: String
-    @State var passportNumber: String
-    @State var validityPeriod: String
     
-    let validationRule: (_ value: String) -> Bool
     let title: String
     
     var body: some View {
         VStack {
-            DisclosureGroup(title, isExpanded: $isExpanded) {
+            DisclosureGroup(tourist.number, isExpanded: $isExpanded) {
                 VStack(alignment: .leading, spacing: 8) {
-                    BaseTextField(text: $name, validationRule: validationRule, title: Constants.name)
-                    BaseTextField(text: $lastName, validationRule: validationRule, title: Constants.lastName)
-                    DateTextField(text: $birthDate, title: Constants.birthDate, mask: Constants.dateMask)
-                    BaseTextField(text: $citizenship, validationRule: validationRule, title: Constants.citizenship)
+                    BaseTextField(text: $tourist.name, isValidated: isTextValid(tourist.name), title: Constants.name)
+                    BaseTextField(text: $tourist.lastName, isValidated: isTextValid(tourist.lastName), title: Constants.lastName)
+                    DateTextField(text: $tourist.birthDate, title: Constants.birthDate, isValidated: isDateValid(tourist.birthDate), mask: Constants.dateMask)
+                    BaseTextField(text: $tourist.citizenship, isValidated: isTextValid(tourist.citizenship), title: Constants.citizenship)
                     
                     BaseTextField(
-                        text: $passportNumber,
-                        validationRule: validationRule,
+                        text: $tourist.passportNumber,
+                        isValidated: isNumberValid(tourist.passportNumber),
                         title: Constants.passportNumber,
                         keyboardType: .numberPad
                     )
                     
                     DateTextField(
-                        text: $validityPeriod,
+                        text: $tourist.passportExpirationDate,
                         title: Constants.passportExporationDate,
+                        isValidated: isDateValid(tourist.passportExpirationDate),
                         mask: Constants.dateMask
                     )
                 }
@@ -56,6 +51,18 @@ struct TouristInfoView: View {
             .font(Font.Medium.m22)
             .tint(.black)
         }
+    }
+    
+    private func isTextValid(_ value: String) -> Bool {
+        return value.count > 2
+    }
+    
+    private func isDateValid(_ value: String) -> Bool {
+        return value.count == 10
+    }
+    
+    private func isNumberValid(_ value: String) -> Bool {
+        return value.count > 3
     }
 }
 
@@ -104,13 +111,14 @@ private struct DisclosureIconView: View {
 private struct DateTextField: View {
     @Binding var text: String
     let title: String
+    let isValidated: Bool
     let mask: String
     
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
                 .foregroundStyle(.customGray)
-            NumbersBaseTextField(text: $text, title: title, mask: mask)
+            BaseNumberField(text: $text, title: title, mask: mask, isValidated: isValidated)
         }
         .frame(height: 52)
     }

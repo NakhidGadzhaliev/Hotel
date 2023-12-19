@@ -13,9 +13,17 @@ final class ReservationController: UIHostingController<ReservationView> {
         static let failed = "Failed ReservationController"
     }
     
+    private let attributedString = NSAttributedString(
+        string: Constants.title,
+        attributes: [
+            .font: UIFont.Medium.m18,
+            .foregroundColor: UIColor.black
+        ]
+    )
+    
     init(viewModel: ReservationViewModel) {
         super.init(rootView: ReservationView(viewModel: viewModel))
-        title = Constants.title
+        title = attributedString.string
         navigationItem.backButtonDisplayMode = .minimal
     }
     

@@ -1,5 +1,5 @@
 //
-//  AdvantagesView.swift
+//  PeculiaritiesView.swift
 //  Hotel
 //
 //  Created by Нахид Гаджалиев on 16.12.2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AdvantagesView: View {
+struct PeculiaritiesView: View {
     let peculiarities: [String]
     
     var body: some View {
@@ -27,5 +27,5 @@ struct AdvantagesView: View {
 }
 
 #Preview {
-    AdvantagesView(peculiarities: [])
+    PeculiaritiesView(peculiarities: ["a", "sd", "sfa"])
 }

@@ -7,10 +7,10 @@
 
 import Foundation
 
-class FilterNumberPhone: ObservableObject {
+final class FilterNumberPhone: ObservableObject {
     static func format(with mask: String, phone: String) -> String {
-        let numbers = phone.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
-        var result = ""
+        let numbers = phone.replacingOccurrences(of: "[^0-9]", with: String.empty, options: .regularExpression)
+        var result = String.empty
         var index = numbers.startIndex
         
         for ch in mask where index < numbers.endIndex {

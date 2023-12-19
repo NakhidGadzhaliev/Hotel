@@ -58,7 +58,7 @@ private struct RoomItemView: View {
                 .font(Font.Medium.m22)
                 .foregroundStyle(.black)
             
-            AdvantagesView(peculiarities: room.peculiarities)
+            PeculiaritiesView(peculiarities: room.peculiarities)
             
             Button(action: {
                 //

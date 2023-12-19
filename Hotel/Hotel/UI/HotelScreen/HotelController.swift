@@ -9,13 +9,21 @@ import SwiftUI
 
 final class HotelController: UIHostingController<HotelView> {
     private enum Constants {
-        static let hotel = "Отель"
+        static let title = "Отель"
         static let failed = "Failed HotelController"
     }
     
+    private let attributedString = NSAttributedString(
+        string: Constants.title,
+        attributes: [
+            .font: UIFont.Medium.m18,
+            .foregroundColor: UIColor.black
+        ]
+    )
+    
     init(viewModel: HotelViewModel) {
         super.init(rootView: HotelView(viewModel: viewModel))
-        title = Constants.hotel
+        title = attributedString.string
         navigationItem.backButtonDisplayMode = .minimal
         UINavigationBar.appearance().tintColor = .black
     }

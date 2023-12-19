@@ -11,17 +11,21 @@ struct ReservationView: View {
     private enum Constants {
         static let pageLoading = "Загрузка страницы"
         static let pay = "Оплатить"
+        static let seven = "+7"
+        static let alertTitle = "Внимание"
+        static let alertMessage = "Заполните корректно все данные"
+        static let ok = "OK"
     }
     
     @ObservedObject var viewModel: ReservationViewModel
     @State private var email: String = .empty
-    @State private var name: String = .empty
-    @State private var lastName: String = .empty
-    @State private var birthDate: String = .empty
-    @State private var citizenship: String = .empty
-    @State private var passportNumber: String = .empty
-    @State private var validityPeriod: String = .empty
-    @State private var addButtonHidden = false
+    @State private var number: String = Constants.seven
+    @State private var showAlert = false
+    
+    private var areAllFieldsValid: Bool {
+        return viewModel.tourists.allSatisfy { $0.areFieldsValid() } &&
+        viewModel.isValidEmail(email) && viewModel.isValidNumber(number)
+    }
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -32,51 +36,10 @@ struct ReservationView: View {
             } else {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 8) {
-                        VStack(alignment: .leading) {
-                            AboutHotelView(
-                                name: viewModel.reservation.hotelName,
-                                address: viewModel.reservation.hotelAdress,
-                                rating: viewModel.reservation.horating,
-                                ratingName: viewModel.reservation.ratingName
-                            )
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(16)
-                        }
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .foregroundStyle(.white)
-                        )
-                        
-                        ReservationInfoView(
-                            departure: viewModel.reservation.departure,
-                            arrivalCountry: viewModel.reservation.arrivalCountry,
-                            startDate: viewModel.reservation.tourDateStart,
-                            endDate: viewModel.reservation.tourDateStop,
-                            numberOfNights: viewModel.reservation.numberOfNights,
-                            hotelName: viewModel.reservation.hotelName,
-                            room: viewModel.reservation.room,
-                            nutrition: viewModel.reservation.nutrition
-                        )
-                        
-                        BuyerInfoView(email: $email, validationRule: viewModel.isValidEmail)
-                        
-                        ForEach(viewModel.tourists, id: \.self) { item in
-                            TouristInfoView(
-                                name: name,
-                                lastName: lastName,
-                                birthDate: birthDate,
-                                citizenship: citizenship,
-                                passportNumber: passportNumber,
-                                validityPeriod: validityPeriod,
-                                validationRule: viewModel.isTextValid,
-                                title: item
-                            )
-                            .padding(16)
-                            .background(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .foregroundStyle(.white)
-                            )
-                        }
+                        aboutHotelSection
+                        reservationInfoSection
+                        buyerInfoSection
+                        touristsInfoSection
                         
                         AddTouristSectionView(onButtonTap: viewModel.addTourist)
                         
@@ -91,21 +54,92 @@ struct ReservationView: View {
                 .background(Color.customGray)
                 .padding(.bottom, 60)
                 
-                ZStack {
-                    PrimaryButton(
-                        title: Constants.pay,
-                        action: { viewModel.openSuccessScreen() }
+                .alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text(Constants.alertTitle),
+                        message: Text(Constants.alertMessage),
+                        dismissButton: .default(Text(Constants.ok))
                     )
-                    .padding(.horizontal, 16)
-                    .padding(.top, 12)
                 }
-                .background(Color.white)
+                
+                payButton
                 
             }
         }
         .onAppear {
             viewModel.fetchReservation()
         }
+    }
+    
+    var aboutHotelSection: some View {
+        VStack(alignment: .leading) {
+            AboutHotelView(
+                name: viewModel.reservation.hotelName,
+                address: viewModel.reservation.hotelAdress,
+                rating: viewModel.reservation.horating,
+                ratingName: viewModel.reservation.ratingName
+            )
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(16)
+        }
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .foregroundStyle(.white)
+        )
+    }
+    
+    var reservationInfoSection: some View {
+        ReservationInfoView(
+            departure: viewModel.reservation.departure,
+            arrivalCountry: viewModel.reservation.arrivalCountry,
+            startDate: viewModel.reservation.tourDateStart,
+            endDate: viewModel.reservation.tourDateStop,
+            numberOfNights: viewModel.reservation.numberOfNights,
+            hotelName: viewModel.reservation.hotelName,
+            room: viewModel.reservation.room,
+            nutrition: viewModel.reservation.nutrition
+        )
+    }
+    
+    var buyerInfoSection: some View {
+        BuyerInfoView(
+            email: $email,
+            number: $number,
+            isValidated: viewModel.isValidEmail(email),
+            isNumberValidated: viewModel.isValidNumber(number)
+        )
+    }
+    
+    var touristsInfoSection: some View {
+        ForEach(viewModel.tourists.indices, id: \.self) { index in
+            TouristInfoView(
+                tourist: $viewModel.tourists[index],
+                title: viewModel.tourists[index].number
+            )
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .foregroundStyle(.white)
+            )
+        }
+    }
+    
+    var payButton: some View {
+        ZStack {
+            PrimaryButton(
+                title: Constants.pay,
+                action: {
+                    if areAllFieldsValid {
+                        viewModel.openSuccessScreen()
+                    } else {
+                        showAlert = true
+                    }
+                }
+            )
+            .padding(.horizontal, 16)
+            .padding(.top, 12)
+        }
+        .background(Color.white)
     }
 }
 
@@ -160,7 +194,9 @@ private struct BuyerInfoView: View {
     }
     
     @Binding var email: String
-    let validationRule: (_ value: String) -> Bool
+    @Binding var number: String
+    let isValidated: Bool
+    let isNumberValidated: Bool
     
     var body: some View {
         
@@ -170,16 +206,8 @@ private struct BuyerInfoView: View {
                 .foregroundStyle(.black)
                 .frame(maxWidth: .infinity, alignment: .leading)
             VStack(spacing: 8) {
-                PhoneNumberTextField(title: Constants.number)
-                
-                BaseTextField(
-                    text: $email,
-                    validationRule: validationRule,
-                    title: Constants.email,
-                    keyboardType: .emailAddress,
-                    capitalization: .never
-                )
-                
+                PhoneNumberTextField(numberText: $number, title: Constants.number, isValidated: isNumberValidated)
+                BaseTextField(text: $email, isValidated: isValidated, title: Constants.email, keyboardType: .emailAddress, capitalization: .never)
                 Text(Constants.description)
                     .font(Font.Medium.m14)
                     .foregroundStyle(.customDarkGray)
@@ -320,18 +348,18 @@ private struct ReservationInfoItemView: View {
 private struct PhoneNumberTextField: View {
     private enum Constants {
         static let mask = "+X (XXX) XXX-XX-XX"
-        static let seven = "+7"
     }
     
-    @State var numberText = Constants.seven
+    @Binding var numberText: String
     
     let title: String
+    let isValidated: Bool
     
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
                 .foregroundStyle(.customGray)
-            NumbersBaseTextField(text: $numberText, title: title, mask: Constants.mask)
+            BaseNumberField(text: $numberText, title: title, mask: Constants.mask, isValidated: isValidated)
         }
         .frame(height: 52)
     }

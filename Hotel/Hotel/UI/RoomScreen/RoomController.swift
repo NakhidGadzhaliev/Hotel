@@ -14,7 +14,14 @@ final class RoomController: UIHostingController<RoomView> {
     
     init(viewModel: RoomViewModel, with title: String) {
         super.init(rootView: RoomView(viewModel: viewModel))
-        self.title = title
+        
+        self.title = NSAttributedString(
+            string: title,
+            attributes: [
+                .font: UIFont.Medium.m18,
+                .foregroundColor: UIColor.black
+            ]
+        ).string
         navigationItem.backButtonDisplayMode = .minimal
     }
     

@@ -8,12 +8,6 @@
 import SwiftUI
 import Combine
 
-struct Tourist: Identifiable {
-    let id = UUID()
-    let number: String
-    let isValidated: Bool
-}
-
 final class ReservationViewModel: ObservableObject {
     private enum Constants {
         static let firstTourist = "Первый турист"
@@ -44,10 +38,21 @@ final class ReservationViewModel: ObservableObject {
         fuelCharge: .zero,
         serviceCharge: .zero
     )
-    @Published var tourists: [String] = [Constants.firstTourist]
+    @Published var tourists: [Tourist] = [
+        Tourist(
+            number: Constants.firstTourist,
+            name: .empty,
+            lastName: .empty,
+            birthDate: .empty,
+            citizenship: .empty,
+            passportNumber: .empty,
+            passportExpirationDate: .empty
+        )
+    ]
     @Published var isRequestFailed = true
     @Published var isLoading = false
     @Published var error: Error?
+    @Published var areAllFieldsValid: Bool = false
     
     private var cancellables: Set<AnyCancellable> = []
     private let coordinator: ReservationCoordinator
@@ -82,18 +87,26 @@ final class ReservationViewModel: ObservableObject {
     }
     
     func addTourist() {
-        let newElement = numberString(for: tourists.count)
-        tourists.append("\(newElement) \(Constants.tourist)")
-    }
-    
-    func isTextValid(_ value: String) -> Bool {
-        return value.count > 1
+        let newElement = Tourist(
+            number: "\(numberString(for: tourists.count)) турист",
+            name: .empty,
+            lastName: .empty,
+            birthDate: .empty,
+            citizenship: .empty,
+            passportNumber: .empty,
+            passportExpirationDate: .empty
+        )
+        tourists.append(newElement)
     }
     
     func isValidEmail(_ value: String) -> Bool {
         let emailRegex = Constants.emailRegex
         let emailPredicate = NSPredicate(format: Constants.format, emailRegex)
         return emailPredicate.evaluate(with: value)
+    }
+    
+    func isValidNumber(_ value: String) -> Bool {
+        return value.count == 18
     }
     
     private func numberString(for index: Int) -> String {

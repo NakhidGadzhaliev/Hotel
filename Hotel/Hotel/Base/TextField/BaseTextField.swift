@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct BaseTextField: View {
-    @Binding var text: String
     @FocusState var isFocused: Bool
-    @State var isValidValue: Bool = true
+    @Binding var text: String
+    @State private var color: Color = .customGray
     
-    let validationRule: (_ value: String) -> Bool
+    let isValidated: Bool
     let title: String
     var keyboardType: UIKeyboardType = .default
     var capitalization: TextInputAutocapitalization = .words
@@ -20,8 +20,7 @@ struct BaseTextField: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .stroke(isValidValue ? Color.clear : Color.red)
-                .background(.customGray)
+                .foregroundStyle(color)
             VStack(spacing: 0) {
                 if text.isEmpty {
                     if isFocused {
@@ -39,17 +38,16 @@ struct BaseTextField: View {
                 TextField(String.empty, text: $text)
                     .font(Font.Default.d17)
                     .focused($isFocused)
-                    .keyboardType(.emailAddress)
+                    .keyboardType(keyboardType)
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(capitalization)
-                    .onChange(of: text, perform: { newValue in
-                        isValidValue = validationRule(newValue)
-                    })
+                    .onChange(of: text) {
+                        color = isValidated ? Color.customGray : Color(hex: "#EB5757").opacity(0.15)
+                    }
             }
             .padding(.horizontal, 16)
         }
         .frame(height: 52)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }
 
