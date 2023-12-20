@@ -99,14 +99,12 @@ final class ReservationViewModel: ObservableObject {
         tourists.append(newElement)
     }
     
-    func isValidEmail(_ value: String) -> Bool {
-        let emailRegex = Constants.emailRegex
-        let emailPredicate = NSPredicate(format: Constants.format, emailRegex)
-        return emailPredicate.evaluate(with: value)
+    func isEmailValid(_ value: String) -> Bool {
+        Validator.isEmailValid(value)
     }
     
-    func isValidNumber(_ value: String) -> Bool {
-        return value.count == 18
+    func isPhoneNumberValid(_ value: String) -> Bool {
+        Validator.isPhoneNumberValid(value)
     }
     
     private func numberString(for index: Int) -> String {

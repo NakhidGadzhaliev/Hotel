@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class FilterNumberPhone: ObservableObject {
+final class FilterNumberPhone {
     static func format(with mask: String, phone: String) -> String {
         let numbers = phone.replacingOccurrences(of: "[^0-9]", with: String.empty, options: .regularExpression)
         var result = String.empty

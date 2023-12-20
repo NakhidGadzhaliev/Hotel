@@ -27,14 +27,34 @@ struct TouristInfoView: View {
         VStack {
             DisclosureGroup(tourist.number, isExpanded: $isExpanded) {
                 VStack(alignment: .leading, spacing: 8) {
-                    BaseTextField(text: $tourist.name, isValidated: isTextValid(tourist.name), title: Constants.name)
-                    BaseTextField(text: $tourist.lastName, isValidated: isTextValid(tourist.lastName), title: Constants.lastName)
-                    DateTextField(text: $tourist.birthDate, title: Constants.birthDate, isValidated: isDateValid(tourist.birthDate), mask: Constants.dateMask)
-                    BaseTextField(text: $tourist.citizenship, isValidated: isTextValid(tourist.citizenship), title: Constants.citizenship)
+                    BaseTextField(
+                        text: $tourist.name,
+                        isValidated: Validator.isTextValid(tourist.name),
+                        title: Constants.name
+                    )
+                    
+                    BaseTextField(
+                        text: $tourist.lastName,
+                        isValidated: Validator.isTextValid(tourist.lastName),
+                        title: Constants.lastName
+                    )
+                    
+                    DateTextField(
+                        text: $tourist.birthDate,
+                        title: Constants.birthDate,
+                        isValidated: Validator.isDateValid(tourist.birthDate),
+                        mask: Constants.dateMask
+                    )
+                    
+                    BaseTextField(
+                        text: $tourist.citizenship,
+                        isValidated: Validator.isTextValid(tourist.citizenship),
+                        title: Constants.citizenship
+                    )
                     
                     BaseTextField(
                         text: $tourist.passportNumber,
-                        isValidated: isNumberValid(tourist.passportNumber),
+                        isValidated: Validator.isPassportNumberValid(tourist.passportNumber),
                         title: Constants.passportNumber,
                         keyboardType: .numberPad
                     )
@@ -42,7 +62,7 @@ struct TouristInfoView: View {
                     DateTextField(
                         text: $tourist.passportExpirationDate,
                         title: Constants.passportExporationDate,
-                        isValidated: isDateValid(tourist.passportExpirationDate),
+                        isValidated: Validator.isDateValid(tourist.passportExpirationDate),
                         mask: Constants.dateMask
                     )
                 }
@@ -51,18 +71,6 @@ struct TouristInfoView: View {
             .font(Font.Medium.m22)
             .tint(.black)
         }
-    }
-    
-    private func isTextValid(_ value: String) -> Bool {
-        return value.count > 2
-    }
-    
-    private func isDateValid(_ value: String) -> Bool {
-        return value.count == 10
-    }
-    
-    private func isNumberValid(_ value: String) -> Bool {
-        return value.count > 3
     }
 }
 

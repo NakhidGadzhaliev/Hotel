@@ -14,7 +14,7 @@ struct BaseTextField: View {
     
     let isValidated: Bool
     let title: String
-    var keyboardType: UIKeyboardType = .default
+    var keyboardType: UIKeyboardType = .alphabet
     var capitalization: TextInputAutocapitalization = .words
     
     var body: some View {

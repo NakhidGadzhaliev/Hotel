@@ -24,7 +24,7 @@ struct ReservationView: View {
     
     private var areAllFieldsValid: Bool {
         return viewModel.tourists.allSatisfy { $0.areFieldsValid() } &&
-        viewModel.isValidEmail(email) && viewModel.isValidNumber(number)
+        viewModel.isEmailValid(email) && viewModel.isPhoneNumberValid(number)
     }
     
     var body: some View {
@@ -105,8 +105,8 @@ struct ReservationView: View {
         BuyerInfoView(
             email: $email,
             number: $number,
-            isValidated: viewModel.isValidEmail(email),
-            isNumberValidated: viewModel.isValidNumber(number)
+            isValidated: viewModel.isEmailValid(email),
+            isNumberValidated: viewModel.isPhoneNumberValid(number)
         )
     }
     

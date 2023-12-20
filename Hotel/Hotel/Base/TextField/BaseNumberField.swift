@@ -19,7 +19,6 @@ struct BaseNumberField: View {
         let textChangedBinding = Binding<String>(
             get: {
                 FilterNumberPhone.format(with: self.mask, phone: self.text)},
-            
             set: { self.text = $0
             })
         

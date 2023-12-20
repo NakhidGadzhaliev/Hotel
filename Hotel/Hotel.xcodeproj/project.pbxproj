@@ -39,6 +39,7 @@
 		D0DF0DA52B2E0AEA00DA7C32 /* PeculiaritiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF0DA42B2E0AEA00DA7C32 /* PeculiaritiesView.swift */; };
 		D0DF0DA72B2E19BF00DA7C32 /* Image + Assest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF0DA62B2E19BF00DA7C32 /* Image + Assest.swift */; };
 		D0DF0DA92B2E1BE500DA7C32 /* Image + SystemImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF0DA82B2E1BE500DA7C32 /* Image + SystemImage.swift */; };
+		D0E4E3532B33429400374A1C /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E4E3522B33429400374A1C /* Validator.swift */; };
 		D0FB2D872B2C84E1008818DF /* RoomCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB2D822B2C84E1008818DF /* RoomCoordinator.swift */; };
 		D0FB2D882B2C84E1008818DF /* RoomFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB2D832B2C84E1008818DF /* RoomFactory.swift */; };
 		D0FB2D892B2C84E1008818DF /* RoomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB2D842B2C84E1008818DF /* RoomController.swift */; };
@@ -90,6 +91,7 @@
 		D0DF0DA42B2E0AEA00DA7C32 /* PeculiaritiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeculiaritiesView.swift; sourceTree = "<group>"; };
 		D0DF0DA62B2E19BF00DA7C32 /* Image + Assest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image + Assest.swift"; sourceTree = "<group>"; };
 		D0DF0DA82B2E1BE500DA7C32 /* Image + SystemImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image + SystemImage.swift"; sourceTree = "<group>"; };
+		D0E4E3522B33429400374A1C /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		D0FB2D822B2C84E1008818DF /* RoomCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCoordinator.swift; sourceTree = "<group>"; };
 		D0FB2D832B2C84E1008818DF /* RoomFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomFactory.swift; sourceTree = "<group>"; };
 		D0FB2D842B2C84E1008818DF /* RoomController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomController.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 			children = (
 				D0B85EC42B2B76E30083E306 /* Closure.swift */,
 				D08C043A2B309C6A00715E39 /* FilterNumberPhone.swift */,
+				D0E4E3522B33429400374A1C /* Validator.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				D0DF0D9C2B2DEDE900DA7C32 /* SuccessController.swift in Sources */,
 				D0DF0DA52B2E0AEA00DA7C32 /* PeculiaritiesView.swift in Sources */,
 				D0B85ED02B2B77370083E306 /* HotelViewModel.swift in Sources */,
+				D0E4E3532B33429400374A1C /* Validator.swift in Sources */,
 				D0DF0D9E2B2DEDE900DA7C32 /* SuccessViewModel.swift in Sources */,
 				D08C043F2B30C27E00715E39 /* FailView.swift in Sources */,
 				D08C04392B3096F600715E39 /* BaseNumberField.swift in Sources */,
