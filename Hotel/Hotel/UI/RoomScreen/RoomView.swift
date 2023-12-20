@@ -30,9 +30,9 @@ struct RoomView: View {
                             )
                         }
                     }
+                    .background(Color.customGray)
                 }
                 .frame(maxWidth: .infinity)
-                .background(Color.customGray)
             }
         }
         .onAppear {

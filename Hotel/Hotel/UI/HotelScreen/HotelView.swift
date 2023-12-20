@@ -46,8 +46,9 @@ struct HotelView: View {
                             description: viewModel.hotel.aboutTheHotel.description
                         )
                     }
+                    .padding(.bottom, 12)
+                    .background(Color.customGray)
                 }
-                .background(Color.customGray)
                 .padding(.bottom, 60)
                 ZStack {
                     PrimaryButton(

@@ -50,8 +50,9 @@ struct ReservationView: View {
                             touristsCount: viewModel.tourists.count
                         )
                     }
+                    .padding(.bottom, 12)
+                    .background(Color.customGray)
                 }
-                .background(Color.customGray)
                 .padding(.bottom, 60)
                 
                 .alert(isPresented: $showAlert) {
