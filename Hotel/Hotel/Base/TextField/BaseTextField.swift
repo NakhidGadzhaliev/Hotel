@@ -16,6 +16,7 @@ struct BaseTextField: View {
     let title: String
     var keyboardType: UIKeyboardType = .alphabet
     var capitalization: TextInputAutocapitalization = .words
+    var maxLength: Int = 100
     
     var body: some View {
         ZStack {
@@ -35,14 +36,16 @@ struct BaseTextField: View {
                     TextFieldTitleView(title: title)
                         .font(Font.Default.d12)
                 }
-                TextField(String.empty, text: $text)
+                TextField(String.empty, text: $text.maxLength(maxLength))
                     .font(Font.Default.d17)
                     .focused($isFocused)
                     .keyboardType(keyboardType)
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(capitalization)
                     .onChange(of: text) {
-                        color = isValidated ? Color.customGray : Color(hex: "#EB5757").opacity(0.15)
+                        if text.count <= maxLength {
+                            color = isValidated ? Color.customGray : Color(hex: "#EB5757").opacity(0.15)
+                        }
                     }
             }
             .padding(.horizontal, 16)

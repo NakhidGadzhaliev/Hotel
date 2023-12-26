@@ -11,7 +11,7 @@ struct PeculiaritiesView: View {
     let peculiarities: [String]
     
     var body: some View {
-        HStack(spacing: 8) {
+        TagsLayout {
             ForEach(peculiarities, id: \.self) { item in
                 Text(item)
                     .font(Font.Medium.m16)
@@ -21,11 +21,10 @@ struct PeculiaritiesView: View {
                     .background(Color.customLightGray)
                     .cornerRadius(5)
                     .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    .frame(height: 29)
             }
+            .padding(.leading, 16)
         }
     }
-}
-
-#Preview {
-    PeculiaritiesView(peculiarities: ["a", "sd", "sfa"])
 }

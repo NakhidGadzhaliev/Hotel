@@ -8,18 +8,9 @@
 import SwiftUI
 
 struct ReservationView: View {
-    private enum Constants {
-        static let pageLoading = "Загрузка страницы"
-        static let pay = "Оплатить"
-        static let seven = "+7"
-        static let alertTitle = "Внимание"
-        static let alertMessage = "Заполните корректно все данные"
-        static let ok = "OK"
-    }
-    
     @ObservedObject var viewModel: ReservationViewModel
     @State private var email: String = .empty
-    @State private var number: String = Constants.seven
+    @State private var number: String = .empty
     @State private var showAlert = false
     
     private var areAllFieldsValid: Bool {
@@ -50,6 +41,7 @@ struct ReservationView: View {
                             touristsCount: viewModel.tourists.count
                         )
                     }
+                    .padding(.top, 8)
                     .padding(.bottom, 12)
                     .background(Color.customGray)
                 }
@@ -90,7 +82,7 @@ struct ReservationView: View {
     }
     
     var reservationInfoSection: some View {
-        ReservationInfoView(
+        TourInfoView(
             departure: viewModel.reservation.departure,
             arrivalCountry: viewModel.reservation.arrivalCountry,
             startDate: viewModel.reservation.tourDateStart,
@@ -128,7 +120,7 @@ struct ReservationView: View {
     var payButton: some View {
         ZStack {
             PrimaryButton(
-                title: Constants.pay,
+                title: Constants.payButtonTitle,
                 action: {
                     if areAllFieldsValid {
                         viewModel.openSuccessScreen()
@@ -145,13 +137,6 @@ struct ReservationView: View {
 }
 
 private struct TotalPriceView: View {
-    private enum Constants {
-        static let tour = "Тур"
-        static let fuelCharge = "Топливный сбор"
-        static let serviceCharge = "Сервисный сбор"
-        static let toPay = "К оплате"
-    }
-    
     let tourPrice: Int
     let fuelCharge: Int
     let serviceCharge: Int
@@ -187,29 +172,34 @@ private struct TotalPriceView: View {
 }
 
 private struct BuyerInfoView: View {
-    private enum Constants {
-        static let aboutBuyer = "Информация о покупателе"
-        static let number = "Номер телефона"
-        static let email = "Почта"
-        static let description = "Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту"
-    }
-    
     @Binding var email: String
     @Binding var number: String
     let isValidated: Bool
     let isNumberValidated: Bool
     
     var body: some View {
-        
         VStack(alignment: .leading, spacing: 20) {
-            Text(Constants.aboutBuyer)
+            Text(Constants.infoAboutBuyer)
                 .font(Font.Medium.m22)
                 .foregroundStyle(.black)
                 .frame(maxWidth: .infinity, alignment: .leading)
             VStack(spacing: 8) {
-                PhoneNumberTextField(numberText: $number, title: Constants.number, isValidated: isNumberValidated)
-                BaseTextField(text: $email, isValidated: isValidated, title: Constants.email, keyboardType: .emailAddress, capitalization: .never)
-                Text(Constants.description)
+                BaseNumberField(
+                    number: $number,
+                    title: Constants.numberFieldTitle,
+                    mask: Constants.maskForNumber,
+                    isNumberValidated: isNumberValidated,
+                    maxLength: Constants.phoneNumberMaskCount
+                )
+                
+                BaseTextField(
+                    text: $email,
+                    isValidated: isValidated,
+                    title: Constants.emailFieldTitle,
+                    keyboardType: .emailAddress,
+                    capitalization: .never
+                )
+                Text(Constants.descriptionToBuyer)
                     .font(Font.Medium.m14)
                     .foregroundStyle(.customDarkGray)
             }
@@ -223,10 +213,6 @@ private struct BuyerInfoView: View {
 }
 
 private struct AddTouristSectionView: View {
-    private enum Constants {
-        static let addTourist = "Добавить туриста"
-    }
-    
     let onButtonTap: Closure.Void
     
     var body: some View {
@@ -254,17 +240,7 @@ private struct AddTouristSectionView: View {
     }
 }
 
-private struct ReservationInfoView: View {
-    private enum Constants {
-        static let departure = "Вылет из"
-        static let arrivalCountry = "Страна, город"
-        static let date = "Даты"
-        static let numberOfNights = "Кол-во ночей"
-        static let hotel = "Отель"
-        static let room = "Номер"
-        static let nutrition = "Питание"
-    }
-    
+private struct TourInfoView: View {
     let departure: String
     let arrivalCountry: String
     let startDate: String
@@ -344,33 +320,4 @@ private struct ReservationInfoItemView: View {
         }
         .font(Font.Default.d16)
     }
-}
-
-private struct PhoneNumberTextField: View {
-    private enum Constants {
-        static let mask = "+X (XXX) XXX-XX-XX"
-    }
-    
-    @Binding var numberText: String
-    
-    let title: String
-    let isValidated: Bool
-    
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .foregroundStyle(.customGray)
-            BaseNumberField(text: $numberText, title: title, mask: Constants.mask, isValidated: isValidated)
-        }
-        .frame(height: 52)
-    }
-}
-
-#Preview {
-    ReservationView(
-        viewModel: ReservationViewModel(
-            coordinator: ReservationCoordinator(),
-            networkManager: NetworkManager()
-        )
-    )
 }

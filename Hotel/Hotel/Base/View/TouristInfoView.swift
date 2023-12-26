@@ -8,16 +8,6 @@
 import SwiftUI
 
 struct TouristInfoView: View {
-    private enum Constants {
-        static let name = "Имя"
-        static let lastName = "Фамилия"
-        static let birthDate = "Дата рождения"
-        static let dateMask = "XX.XX.XXXX"
-        static let citizenship = "Гражданство"
-        static let passportNumber = "Номер загранпаспорта"
-        static let passportExporationDate = "Срок действия загранпаспорта"
-    }
-    
     @Binding var tourist: Tourist
     @State private var isExpanded: Bool = false
     
@@ -53,7 +43,7 @@ struct TouristInfoView: View {
                     )
                     
                     BaseTextField(
-                        text: $tourist.passportNumber,
+                        text: $tourist.passportNumber.maxLength(12),
                         isValidated: Validator.isPassportNumberValid(tourist.passportNumber),
                         title: Constants.passportNumber,
                         keyboardType: .numberPad
@@ -105,6 +95,17 @@ private struct TouristDisclosureStyle: DisclosureGroupStyle {
     }
 }
 
+private struct DateTextField: View {
+    @Binding var text: String
+    let title: String
+    let isValidated: Bool
+    let mask: String
+    
+    var body: some View {
+        BaseNumberField(number: $text, title: title, mask: mask, isNumberValidated: isValidated)
+    }
+}
+
 private struct DisclosureIconView: View {
     let image: SFSymbolIdentifier
     
@@ -113,21 +114,5 @@ private struct DisclosureIconView: View {
             .resizable()
             .frame(width: 12, height: 6)
             .foregroundStyle(.customBlue)
-    }
-}
-
-private struct DateTextField: View {
-    @Binding var text: String
-    let title: String
-    let isValidated: Bool
-    let mask: String
-    
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .foregroundStyle(.customGray)
-            BaseNumberField(text: $text, title: title, mask: mask, isValidated: isValidated)
-        }
-        .frame(height: 52)
     }
 }

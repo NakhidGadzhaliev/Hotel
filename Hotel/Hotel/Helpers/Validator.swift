@@ -8,11 +8,6 @@
 import Foundation
 
 struct Validator {
-    private enum Constants {
-        static let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        static let format = "SELF MATCHES %@"
-    }
-    
     static func isTextValid(_ value: String) -> Bool {
         let letters = CharacterSet.letters
         let isOnlyLetters = value.rangeOfCharacter(from: letters.inverted) == nil
@@ -20,7 +15,7 @@ struct Validator {
     }
     
     static func isDateValid(_ value: String) -> Bool {
-        return value.count == 10
+        return value.count == Constants.dateMaskCount
     }
     
     static func isPassportNumberValid(_ value: String) -> Bool {
@@ -34,6 +29,6 @@ struct Validator {
     }
     
     static func isPhoneNumberValid(_ value: String) -> Bool {
-        return value.count == 18
+        return value.count == Constants.phoneNumberMaskCount
     }
 }

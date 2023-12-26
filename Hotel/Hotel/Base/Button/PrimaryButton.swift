@@ -26,7 +26,3 @@ struct PrimaryButton: View {
         .foregroundStyle(.white)
     }
 }
-
-#Preview {
-    PrimaryButton(title: "Нажать", action: {})
-}

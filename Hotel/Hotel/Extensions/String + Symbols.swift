@@ -16,4 +16,5 @@ public extension String {
     static var grid: Self { "#" }
     static var currency: Self { "₽" }
     static var minus: Self { "-" }
+    static var x: Self { "X" }
 }

@@ -8,10 +8,6 @@
 import SwiftUI
 
 struct RoomView: View {
-    private enum Constants {
-        static let pageLoading = "Загрузка страницы"
-    }
-    
     @ObservedObject var viewModel: RoomViewModel
     
     var body: some View {
@@ -30,6 +26,7 @@ struct RoomView: View {
                             )
                         }
                     }
+                    .padding(.top, 8)
                     .background(Color.customGray)
                 }
                 .frame(maxWidth: .infinity)
@@ -42,11 +39,6 @@ struct RoomView: View {
 }
 
 private struct RoomItemView: View {
-    private enum Constants {
-        static let details = "Подробнее о номере"
-        static let chooseRoom = "Выбрать номер"
-    }
-    
     let room: RoomElement
     let onButtonTap: Closure.Void
     
@@ -64,7 +56,7 @@ private struct RoomItemView: View {
                 //
             }, label: {
                 HStack(spacing: 2) {
-                    Text(Constants.details)
+                    Text(Constants.detailsAboutRoom)
                     Image(systemSymbol: .chevronRight)
                 }
                 .font(Font.Medium.m16)
@@ -96,13 +88,4 @@ private struct RoomItemView: View {
                 .foregroundStyle(.white)
         )
     }
-}
-
-#Preview {
-    RoomView(
-        viewModel: RoomViewModel(
-            coordinator: RoomCoordinator(),
-            networkManager: NetworkManager()
-        )
-    )
 }

@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D08C04392B3096F600715E39 /* BaseNumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08C04382B3096F600715E39 /* BaseNumberField.swift */; };
+		D016D9E62B3B3A840089463C /* TagsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D016D9E52B3B3A840089463C /* TagsLayout.swift */; };
+		D016D9E82B3B3ACB0089463C /* LayoutSubviewsElement + MaxHeigh.swift in Sources */ = {isa = PBXBuildFile; fileRef = D016D9E72B3B3ACB0089463C /* LayoutSubviewsElement + MaxHeigh.swift */; };
+		D016D9EB2B3B3F420089463C /* Binding + MaxLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = D016D9EA2B3B3F420089463C /* Binding + MaxLength.swift */; };
+		D016D9ED2B3B51700089463C /* BaseNumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D016D9EC2B3B51700089463C /* BaseNumberField.swift */; };
 		D08C043B2B309C6A00715E39 /* FilterNumberPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08C043A2B309C6A00715E39 /* FilterNumberPhone.swift */; };
 		D08C043F2B30C27E00715E39 /* FailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08C043E2B30C27E00715E39 /* FailView.swift */; };
 		D0A5736B2B30D54A0088B56A /* String + Symbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A5736A2B30D54A0088B56A /* String + Symbols.swift */; };
@@ -40,6 +43,7 @@
 		D0DF0DA72B2E19BF00DA7C32 /* Image + Assest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF0DA62B2E19BF00DA7C32 /* Image + Assest.swift */; };
 		D0DF0DA92B2E1BE500DA7C32 /* Image + SystemImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF0DA82B2E1BE500DA7C32 /* Image + SystemImage.swift */; };
 		D0E4E3532B33429400374A1C /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E4E3522B33429400374A1C /* Validator.swift */; };
+		D0EF7D052B3B5A84004FD36E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EF7D042B3B5A84004FD36E /* Constants.swift */; };
 		D0FB2D872B2C84E1008818DF /* RoomCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB2D822B2C84E1008818DF /* RoomCoordinator.swift */; };
 		D0FB2D882B2C84E1008818DF /* RoomFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB2D832B2C84E1008818DF /* RoomFactory.swift */; };
 		D0FB2D892B2C84E1008818DF /* RoomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB2D842B2C84E1008818DF /* RoomController.swift */; };
@@ -57,7 +61,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D08C04382B3096F600715E39 /* BaseNumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNumberField.swift; sourceTree = "<group>"; };
+		D016D9E52B3B3A840089463C /* TagsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsLayout.swift; sourceTree = "<group>"; };
+		D016D9E72B3B3ACB0089463C /* LayoutSubviewsElement + MaxHeigh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LayoutSubviewsElement + MaxHeigh.swift"; sourceTree = "<group>"; };
+		D016D9EA2B3B3F420089463C /* Binding + MaxLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding + MaxLength.swift"; sourceTree = "<group>"; };
+		D016D9EC2B3B51700089463C /* BaseNumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNumberField.swift; sourceTree = "<group>"; };
 		D08C043A2B309C6A00715E39 /* FilterNumberPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterNumberPhone.swift; sourceTree = "<group>"; };
 		D08C043E2B30C27E00715E39 /* FailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailView.swift; sourceTree = "<group>"; };
 		D0A5736A2B30D54A0088B56A /* String + Symbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Symbols.swift"; sourceTree = "<group>"; };
@@ -92,6 +99,7 @@
 		D0DF0DA62B2E19BF00DA7C32 /* Image + Assest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image + Assest.swift"; sourceTree = "<group>"; };
 		D0DF0DA82B2E1BE500DA7C32 /* Image + SystemImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image + SystemImage.swift"; sourceTree = "<group>"; };
 		D0E4E3522B33429400374A1C /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		D0EF7D042B3B5A84004FD36E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D0FB2D822B2C84E1008818DF /* RoomCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCoordinator.swift; sourceTree = "<group>"; };
 		D0FB2D832B2C84E1008818DF /* RoomFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomFactory.swift; sourceTree = "<group>"; };
 		D0FB2D842B2C84E1008818DF /* RoomController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomController.swift; sourceTree = "<group>"; };
@@ -119,11 +127,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D016D9E92B3B3B0D0089463C /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				D016D9E52B3B3A840089463C /* TagsLayout.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
 		D0A573722B31DA410088B56A /* TextField */ = {
 			isa = PBXGroup;
 			children = (
 				D0FB2DA32B2CE4CE008818DF /* BaseTextField.swift */,
-				D08C04382B3096F600715E39 /* BaseNumberField.swift */,
+				D016D9EC2B3B51700089463C /* BaseNumberField.swift */,
 			);
 			path = TextField;
 			sourceTree = "<group>";
@@ -158,6 +174,7 @@
 		D0B575B72B2B93BA0001AC85 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				D016D9E92B3B3B0D0089463C /* Layout */,
 				D0A573742B31DA7E0088B56A /* View */,
 				D0A573732B31DA750088B56A /* Button */,
 				D0A573722B31DA410088B56A /* TextField */,
@@ -186,7 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				D0B85EB72B2B73D40083E306 /* App */,
-				D0B85EBB2B2B73F20083E306 /* Routers */,
+				D0B85EBB2B2B73F20083E306 /* Router */,
 				D0B85EB92B2B73E60083E306 /* NetworkManager */,
 				D0B85EBA2B2B73ED0083E306 /* Models */,
 				D0B575B72B2B93BA0001AC85 /* Base */,
@@ -226,12 +243,12 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		D0B85EBB2B2B73F20083E306 /* Routers */ = {
+		D0B85EBB2B2B73F20083E306 /* Router */ = {
 			isa = PBXGroup;
 			children = (
 				D0B85EC02B2B76850083E306 /* NavigationRouter.swift */,
 			);
-			path = Routers;
+			path = Router;
 			sourceTree = "<group>";
 		};
 		D0B85EBC2B2B73F90083E306 /* UI */ = {
@@ -249,6 +266,7 @@
 		D0B85EBD2B2B740B0083E306 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				D0EF7D042B3B5A84004FD36E /* Constants.swift */,
 				D0B85EC42B2B76E30083E306 /* Closure.swift */,
 				D08C043A2B309C6A00715E39 /* FilterNumberPhone.swift */,
 				D0E4E3522B33429400374A1C /* Validator.swift */,
@@ -306,6 +324,8 @@
 				D0DF0DA02B2DF67F00DA7C32 /* Font + Typography.swift */,
 				D0D3D07A2B32320A003DDF78 /* UIFont + Typography.swift */,
 				D0A5736A2B30D54A0088B56A /* String + Symbols.swift */,
+				D016D9E72B3B3ACB0089463C /* LayoutSubviewsElement + MaxHeigh.swift */,
+				D016D9EA2B3B3F420089463C /* Binding + MaxLength.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -406,6 +426,7 @@
 			files = (
 				D0A5736F2B30FE350088B56A /* TouristInfoView.swift in Sources */,
 				D0DF0DA32B2DFD4D00DA7C32 /* NetworkManager.swift in Sources */,
+				D016D9EB2B3B3F420089463C /* Binding + MaxLength.swift in Sources */,
 				D0DF0D9A2B2DEDE900DA7C32 /* SuccessCoordinator.swift in Sources */,
 				D0FB2D9A2B2CA8D7008818DF /* ReservationViewModel.swift in Sources */,
 				D0FB2DA22B2CB0B2008818DF /* AboutHotelView.swift in Sources */,
@@ -413,6 +434,7 @@
 				D0A5736B2B30D54A0088B56A /* String + Symbols.swift in Sources */,
 				D0D3D07B2B32320A003DDF78 /* UIFont + Typography.swift in Sources */,
 				D0DF0DA92B2E1BE500DA7C32 /* Image + SystemImage.swift in Sources */,
+				D016D9E62B3B3A840089463C /* TagsLayout.swift in Sources */,
 				D0DF0D9B2B2DEDE900DA7C32 /* SuccessFactory.swift in Sources */,
 				D0FB2D962B2CA8D7008818DF /* ReservationCoordinator.swift in Sources */,
 				D0A5736D2B30F9B60088B56A /* Tourist.swift in Sources */,
@@ -424,7 +446,9 @@
 				D0B85ECE2B2B77370083E306 /* HotelController.swift in Sources */,
 				D0FB2D992B2CA8D7008818DF /* ReservationView.swift in Sources */,
 				D0DF0DA72B2E19BF00DA7C32 /* Image + Assest.swift in Sources */,
+				D016D9ED2B3B51700089463C /* BaseNumberField.swift in Sources */,
 				D08C043B2B309C6A00715E39 /* FilterNumberPhone.swift in Sources */,
+				D016D9E82B3B3ACB0089463C /* LayoutSubviewsElement + MaxHeigh.swift in Sources */,
 				D0B85EA42B2B73C10083E306 /* AppDelegate.swift in Sources */,
 				D0B85EC12B2B76850083E306 /* NavigationRouter.swift in Sources */,
 				D0B85ECC2B2B77370083E306 /* HotelCoordinator.swift in Sources */,
@@ -444,9 +468,9 @@
 				D0E4E3532B33429400374A1C /* Validator.swift in Sources */,
 				D0DF0D9E2B2DEDE900DA7C32 /* SuccessViewModel.swift in Sources */,
 				D08C043F2B30C27E00715E39 /* FailView.swift in Sources */,
-				D08C04392B3096F600715E39 /* BaseNumberField.swift in Sources */,
 				D0DF0DA12B2DF67F00DA7C32 /* Font + Typography.swift in Sources */,
 				D0FB2D882B2C84E1008818DF /* RoomFactory.swift in Sources */,
+				D0EF7D052B3B5A84004FD36E /* Constants.swift in Sources */,
 				D0B85EC52B2B76E30083E306 /* Closure.swift in Sources */,
 				D0A573712B310E270088B56A /* Color + HEX.swift in Sources */,
 			);

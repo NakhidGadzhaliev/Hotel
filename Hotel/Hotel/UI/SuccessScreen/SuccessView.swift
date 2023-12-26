@@ -8,11 +8,6 @@
 import SwiftUI
 
 struct SuccessView: View {
-    private enum Constants {
-        static let orderIsAccepted = "Ваш заказ принят в работу"
-        static let confirmation = "Подтверждение заказа №104893 может занять некоторое время (от 1 часа до суток). \n Как только мы получим ответ от туроператора, вам на почту придет уведомление."
-        static let superText = "Супер!"
-    }
     @ObservedObject var viewModel: SuccessViewModel
     
     var body: some View {
@@ -38,19 +33,11 @@ struct SuccessView: View {
             Spacer()
             ZStack {
                 PrimaryButton(
-                    title: Constants.superText,
+                    title: Constants.superButtonTitle,
                     action: { viewModel.backToRootScreen() }
                 )
             }
         }
         .padding(.horizontal, 16)
     }
-}
-
-#Preview {
-    SuccessView(
-        viewModel: SuccessViewModel(
-            coordinator: SuccessCoordinator()
-        )
-    )
 }

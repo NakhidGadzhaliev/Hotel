@@ -8,11 +8,6 @@
 import SwiftUI
 
 struct FailView: View {
-    private enum Constants {
-        static let noConnection = "Нет подключения к сети"
-        static let tryReload = "Пожалуйста, попробуйте перезагрузить приложение"
-    }
-    
     var body: some View {
         VStack(spacing: 57) {
             Spacer()
@@ -37,8 +32,4 @@ struct FailView: View {
         }
         .padding(.horizontal, 16)
     }
-}
-
-#Preview {
-    FailView()
 }

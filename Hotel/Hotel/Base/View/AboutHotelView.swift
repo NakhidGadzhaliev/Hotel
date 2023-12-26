@@ -49,7 +49,3 @@ private struct RatingView: View {
         .cornerRadius(5)
     }
 }
-
-#Preview {
-    AboutHotelView(name: "safd", address: "afdsf", rating: 5, ratingName: "dhgjsdkg")
-}

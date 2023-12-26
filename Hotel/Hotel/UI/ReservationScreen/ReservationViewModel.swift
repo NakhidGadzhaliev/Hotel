@@ -9,18 +9,6 @@ import SwiftUI
 import Combine
 
 final class ReservationViewModel: ObservableObject {
-    private enum Constants {
-        static let firstTourist = "Первый турист"
-        static let tourist = "турист"
-        static let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        static let format = "SELF MATCHES %@"
-        static let first = "Первый"
-        static let second = "Второй"
-        static let third = "Третий"
-        static let fourth = "Четвертый"
-        static let fifth = "Пятый"
-    }
-    
     @Published var reservation = Reservation(
         id: .zero,
         hotelName: .empty,
@@ -88,7 +76,7 @@ final class ReservationViewModel: ObservableObject {
     
     func addTourist() {
         let newElement = Tourist(
-            number: "\(numberString(for: tourists.count)) турист",
+            number: "\(numberString(for: tourists.count)) \(Constants.tourist)",
             name: .empty,
             lastName: .empty,
             birthDate: .empty,

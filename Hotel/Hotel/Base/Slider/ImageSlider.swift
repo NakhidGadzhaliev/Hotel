@@ -8,10 +8,6 @@
 import SwiftUI
 
 struct ImageSlider: View {
-    private enum Constants {
-        static let unknownError = "Unknown error"
-    }
-    
     @State private var selection = 0
     let imageUrls: [String]
     
@@ -74,8 +70,4 @@ private struct IndexIndicatorView: View {
         }
         .frame(maxWidth: .zero)
     }
-}
-
-#Preview {
-    ImageSlider(imageUrls: ["asf", "asf", "asf", "asf", "asf"])
 }

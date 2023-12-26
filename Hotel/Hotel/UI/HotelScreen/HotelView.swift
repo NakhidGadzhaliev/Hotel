@@ -8,11 +8,6 @@
 import SwiftUI
 
 struct HotelView: View {
-    private enum Constants {
-        static let pageLoading = "Загрузка страницы"
-        static let chooseNumber = "К выбору номера"
-    }
-    
     @ObservedObject var viewModel: HotelViewModel
     
     var body: some View {
@@ -68,21 +63,19 @@ struct HotelView: View {
 }
 
 private struct DetailInfoView: View {
-    private enum Constants {
-        static let aboutHotel = "Об отеле"
-    }
-    
     let peculiarities: [String]
     let description: String
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 0) {
             Text(Constants.aboutHotel)
                 .font(Font.Medium.m22)
                 .foregroundStyle(.black)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.bottom, 16)
             
             PeculiaritiesView(peculiarities: peculiarities)
+                .padding(.bottom, 12)
             
             Text(description)
                 .font(Font.Default.d16)
@@ -101,13 +94,6 @@ private struct DetailInfoView: View {
 }
 
 private struct AdditionalInfoView: View {
-    private enum Constants {
-        static let facilities = "Удобства"
-        static let essentials = "Самое необходимое"
-        static let included = "Что включено"
-        static let notIncluded = "Что не включено"
-    }
-    
     var body: some View {
         VStack(spacing: 0) {
             AdditionalInfoItemView(
@@ -184,7 +170,7 @@ private struct MainInfoView: View {
                 ratingName: ratingName
             )
             
-            Text("от \(price) \(String.currency) ")
+            Text("\(Constants.from) \(price) \(String.currency) ")
                 .font(Font.Semibold.s30)
                 .foregroundStyle(.black)
             +
@@ -193,13 +179,4 @@ private struct MainInfoView: View {
                 .font(Font.Default.d16)
         }
     }
-}
-
-#Preview {
-    HotelView(
-        viewModel: HotelViewModel(
-            coordinator: HotelCoordinator(),
-            networkManager: NetworkManager()
-        )
-    )
 }

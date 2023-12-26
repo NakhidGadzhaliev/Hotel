@@ -8,13 +8,8 @@
 import SwiftUI
 
 final class ReservationController: UIHostingController<ReservationView> {
-    private enum Constants {
-        static let title = "Бронирование"
-        static let failed = "Failed ReservationController"
-    }
-    
     private let attributedString = NSAttributedString(
-        string: Constants.title,
+        string: Constants.reservationTitle,
         attributes: [
             .font: UIFont.Medium.m18,
             .foregroundColor: UIColor.black
@@ -29,6 +24,6 @@ final class ReservationController: UIHostingController<ReservationView> {
     
     @MainActor required dynamic init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        assertionFailure(Constants.failed)
+        assertionFailure(Constants.reservationControllerFailed)
     }
 }

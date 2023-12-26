@@ -8,13 +8,8 @@
 import SwiftUI
 
 final class SuccessController: UIHostingController<SuccessView> {
-    private enum Constants {
-        static let title = "Заказ оплачен"
-        static let failed = "Failed SuccessController"
-    }
-    
     private let attributedString = NSAttributedString(
-        string: Constants.title,
+        string: Constants.successTitle,
         attributes: [
             .font: UIFont.Medium.m18,
             .foregroundColor: UIColor.black
@@ -28,6 +23,6 @@ final class SuccessController: UIHostingController<SuccessView> {
     
     @MainActor required dynamic init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        assertionFailure(Constants.failed)
+        assertionFailure(Constants.successControllerFailed)
     }
 }
