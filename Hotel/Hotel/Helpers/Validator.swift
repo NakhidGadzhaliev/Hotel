@@ -54,7 +54,7 @@ struct Validator {
     // Проверка валидности номера паспорта
     static func isPassportNumberValid(_ value: String) -> Bool {
         // Проверяем, что номер паспорта имеет длину более 3 символов
-        return value.count > 3
+        return value.count == 10
     }
     
     // Проверка валидности электронной почты

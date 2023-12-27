@@ -32,11 +32,11 @@ struct TouristInfoView: View {
                         title: Constants.lastName
                     )
                     
-                    DateTextField(
-                        text: $tourist.birthDate,
+                    BaseNumberField(
+                        number: $tourist.birthDate,
                         title: Constants.birthDate,
-                        isValidated: Validator.isBirthDateValid(tourist.birthDate),
-                        mask: Constants.dateMask
+                        mask: Constants.dateMask,
+                        isNumberValidated: Validator.isBirthDateValid(tourist.birthDate)
                     )
                     
                     BaseTextField(
@@ -45,18 +45,18 @@ struct TouristInfoView: View {
                         title: Constants.citizenship
                     )
                     
-                    BaseTextField(
-                        text: $tourist.passportNumber.maxLength(12),
-                        isValidated: Validator.isPassportNumberValid(tourist.passportNumber),
+                    BaseNumberField(
+                        number: $tourist.passportNumber,
                         title: Constants.passportNumber,
-                        keyboardType: .numberPad
+                        mask: Constants.passportNumberMask,
+                        isNumberValidated: Validator.isPassportNumberValid(tourist.passportNumber)
                     )
                     
-                    DateTextField(
-                        text: $tourist.passportExpirationDate,
-                        title: Constants.passportExporationDate,
-                        isValidated: Validator.isExpirationDateValid(tourist.passportExpirationDate),
-                        mask: Constants.dateMask
+                    BaseNumberField(
+                        number: $tourist.passportExpirationDate,
+                        title: Constants.passportExpirationDate,
+                        mask: Constants.dateMask,
+                        isNumberValidated: Validator.isExpirationDateValid(tourist.passportExpirationDate)
                     )
                 }
             }
@@ -99,18 +99,6 @@ private struct TouristDisclosureStyle: DisclosureGroupStyle {
                 configuration.content
             }
         }
-    }
-}
-
-// Поле для ввода даты с маской
-private struct DateTextField: View {
-    @Binding var text: String
-    let title: String
-    let isValidated: Bool
-    let mask: String
-    
-    var body: some View {
-        BaseNumberField(number: $text, title: title, mask: mask, isNumberValidated: isValidated)
     }
 }
 
