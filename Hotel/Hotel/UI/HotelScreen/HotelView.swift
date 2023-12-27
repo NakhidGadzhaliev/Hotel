@@ -92,6 +92,7 @@ private struct DetailInfoView: View {
             Text(description)
                 .font(Font.Default.d16)
                 .foregroundStyle(.black.opacity(0.9))
+                .padding(.bottom, 16)
             
             // Дополнительная информация
             AdditionalInfoView()
