@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// Отображение информации о туристе с возможностью раскрытия дополнительных данных
 struct TouristInfoView: View {
     @Binding var tourist: Tourist
     @State private var isExpanded: Bool = false
@@ -15,8 +16,10 @@ struct TouristInfoView: View {
     
     var body: some View {
         VStack {
+            // DisclosureGroup для отображения информации о туристе
             DisclosureGroup(tourist.number, isExpanded: $isExpanded) {
                 VStack(alignment: .leading, spacing: 8) {
+                    // Поля для ввода информации о туристе
                     BaseTextField(
                         text: $tourist.name,
                         isValidated: Validator.isTextValid(tourist.name),
@@ -64,13 +67,16 @@ struct TouristInfoView: View {
     }
 }
 
+// Стиль для DisclosureGroup
 private struct TouristDisclosureStyle: DisclosureGroupStyle {
     func makeBody(configuration: Configuration) -> some View {
         VStack(alignment: .leading) {
             HStack {
+                // Заголовок
                 configuration.label
                 Spacer()
                 ZStack {
+                    // Иконка открытия/закрытия
                     RoundedRectangle(cornerRadius: 6)
                         .frame(width: 32, height: 32)
                         .foregroundStyle(.customLightBlue)
@@ -88,6 +94,7 @@ private struct TouristDisclosureStyle: DisclosureGroupStyle {
                 }
             }
             
+            // Дополнительные данные при раскрытии
             if configuration.isExpanded {
                 configuration.content
             }
@@ -95,6 +102,7 @@ private struct TouristDisclosureStyle: DisclosureGroupStyle {
     }
 }
 
+// Поле для ввода даты с маской
 private struct DateTextField: View {
     @Binding var text: String
     let title: String
@@ -106,6 +114,7 @@ private struct DateTextField: View {
     }
 }
 
+// Иконка для открытия/закрытия
 private struct DisclosureIconView: View {
     let image: SFSymbolIdentifier
     

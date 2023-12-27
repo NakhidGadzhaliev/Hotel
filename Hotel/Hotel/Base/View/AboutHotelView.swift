@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// Отображение информации об отеле, включая рейтинг и адрес
 struct AboutHotelView: View {
     let name: String
     let address: String
@@ -15,12 +16,15 @@ struct AboutHotelView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
+            // Отображение рейтинга отеля
             RatingView(rating: rating, ratingName: ratingName)
-
+            
+            // Отображение названия отеля
             Text(name)
                 .font(Font.Medium.m16)
                 .foregroundStyle(.black)
-
+            
+            // Кнопка с адресом отеля (в данном случае неактивная)
             Button(action: {}, label: {
                 Text(address)
                     .font(Font.Medium.m14)
@@ -31,14 +35,18 @@ struct AboutHotelView: View {
     }
 }
 
+// Отображение рейтинга с иконкой звезды, числовым значением и наименованием рейтинга
 private struct RatingView: View {
     let rating: Int
     let ratingName: String
     
     var body: some View {
         HStack(spacing: 2) {
+            // Иконка звезды
             Image(systemSymbol: .starFill)
+            // Числовое значение рейтинга
             Text("\(rating)")
+            // Наименование рейтинга
             Text(ratingName)
         }
         .font(Font.Medium.m16)

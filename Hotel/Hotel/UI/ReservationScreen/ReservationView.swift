@@ -7,12 +7,14 @@
 
 import SwiftUI
 
+// Экран оформления бронирования
 struct ReservationView: View {
     @ObservedObject var viewModel: ReservationViewModel
     @State private var email: String = .empty
     @State private var number: String = .empty
     @State private var showAlert = false
     
+    // Вычисляемое свойство для проверки валидности всех полей
     private var areAllFieldsValid: Bool {
         return viewModel.tourists.allSatisfy { $0.areFieldsValid() } &&
         viewModel.isEmailValid(email) && viewModel.isPhoneNumberValid(number)
@@ -20,11 +22,14 @@ struct ReservationView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
+            // Отображение индикатора загрузки при загрузке данных
             if viewModel.isLoading {
                 ProgressView(Constants.pageLoading)
             } else if let _ = viewModel.error {
+                // Отображение экрана ошибки при неудачной загрузке
                 FailView()
             } else {
+                // Отображение основного контента
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 8) {
                         aboutHotelSection
@@ -47,6 +52,7 @@ struct ReservationView: View {
                 }
                 .padding(.bottom, 60)
                 
+                // Отображение алерта при не валидных полях
                 .alert(isPresented: $showAlert) {
                     Alert(
                         title: Text(Constants.alertTitle),
@@ -55,15 +61,17 @@ struct ReservationView: View {
                     )
                 }
                 
+                // Кнопка для подтверждения бронирования
                 payButton
-                
             }
         }
         .onAppear {
+            // Запрос данных о бронировании при появлении экрана
             viewModel.fetchReservation()
         }
     }
     
+    // Секция с информацией об отеле
     var aboutHotelSection: some View {
         VStack(alignment: .leading) {
             AboutHotelView(
@@ -81,6 +89,7 @@ struct ReservationView: View {
         )
     }
     
+    // Секция с информацией о бронировании
     var reservationInfoSection: some View {
         TourInfoView(
             departure: viewModel.reservation.departure,
@@ -94,6 +103,7 @@ struct ReservationView: View {
         )
     }
     
+    // Секция с информацией о покупателе
     var buyerInfoSection: some View {
         BuyerInfoView(
             email: $email,
@@ -103,6 +113,7 @@ struct ReservationView: View {
         )
     }
     
+    // Секция с информацией о туристах
     var touristsInfoSection: some View {
         ForEach(viewModel.tourists.indices, id: \.self) { index in
             TouristInfoView(
@@ -117,6 +128,7 @@ struct ReservationView: View {
         }
     }
     
+    // Кнопка для подтверждения бронирования
     var payButton: some View {
         ZStack {
             PrimaryButton(
@@ -136,6 +148,7 @@ struct ReservationView: View {
     }
 }
 
+// Секция с общей стоимостью бронирования
 private struct TotalPriceView: View {
     let tourPrice: Int
     let fuelCharge: Int
@@ -144,20 +157,23 @@ private struct TotalPriceView: View {
     
     var body: some View {
         VStack(spacing: 16) {
+            // Отображение стоимости тура, топливного сбора и сервисного сбора
             PriceItemView(title: Constants.tour, price: tourPrice * touristsCount)
             PriceItemView(title: Constants.fuelCharge, price: fuelCharge * touristsCount)
             PriceItemView(title: Constants.serviceCharge, price: serviceCharge * touristsCount)
+            
+            // Отображение общей стоимости
             HStack {
                 Text(Constants.toPay)
                     .font(Font.Default.d16)
                     .foregroundStyle(Color.customDarkGray)
                     .frame(maxWidth: 150, alignment: .leading)
+                
                 Text("\(totalPriceCounter()) \(String.currency)")
                     .font(Font.Semibold.s16)
                     .foregroundStyle(.customBlue)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
-            
         }
         .padding(16)
         .background(
@@ -166,11 +182,13 @@ private struct TotalPriceView: View {
         )
     }
     
+    // Вычисляемое свойство для подсчета общей стоимости
     private func totalPriceCounter() -> Int {
         (tourPrice + fuelCharge + serviceCharge) * touristsCount
     }
 }
 
+// Секция с информацией о покупателе
 private struct BuyerInfoView: View {
     @Binding var email: String
     @Binding var number: String
@@ -179,10 +197,13 @@ private struct BuyerInfoView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
+            // Заголовок секции
             Text(Constants.infoAboutBuyer)
                 .font(Font.Medium.m22)
                 .foregroundStyle(.black)
                 .frame(maxWidth: .infinity, alignment: .leading)
+            
+            // Ввод данных о номере и email покупателя
             VStack(spacing: 8) {
                 BaseNumberField(
                     number: $number,
@@ -199,6 +220,8 @@ private struct BuyerInfoView: View {
                     keyboardType: .emailAddress,
                     capitalization: .never
                 )
+                
+                // Дополнительная информация для покупателя
                 Text(Constants.descriptionToBuyer)
                     .font(Font.Medium.m14)
                     .foregroundStyle(.customDarkGray)
@@ -212,6 +235,7 @@ private struct BuyerInfoView: View {
     }
 }
 
+// Секция для добавления туриста
 private struct AddTouristSectionView: View {
     let onButtonTap: Closure.Void
     
@@ -220,11 +244,15 @@ private struct AddTouristSectionView: View {
             Text(Constants.addTourist)
                 .font(Font.Medium.m22)
                 .foregroundStyle(.black)
+            
             Spacer()
+            
+            // Кнопка для добавления туриста
             ZStack {
                 RoundedRectangle(cornerRadius: 6)
                     .frame(width: 32, height: 32)
                     .foregroundStyle(.customBlue)
+                
                 Image(systemSymbol: .plus)
                     .foregroundStyle(.white)
                     .onTapGesture {
@@ -240,6 +268,7 @@ private struct AddTouristSectionView: View {
     }
 }
 
+// Секция с информацией о туре
 private struct TourInfoView: View {
     let departure: String
     let arrivalCountry: String
@@ -252,30 +281,37 @@ private struct TourInfoView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
+            // Отображение информации о туре
             ReservationInfoItemView(
                 title: Constants.departure,
                 info: departure
             )
+            
             ReservationInfoItemView(
                 title: Constants.arrivalCountry,
                 info: arrivalCountry
             )
+            
             ReservationInfoItemView(
                 title: Constants.date,
                 info: startDate + " \(String.minus) " + endDate
             )
+            
             ReservationInfoItemView(
                 title: Constants.numberOfNights,
                 info: "\(numberOfNights)"
             )
+            
             ReservationInfoItemView(
                 title: Constants.hotel,
                 info: hotelName
             )
+            
             ReservationInfoItemView(
                 title: Constants.room,
                 info: room
             )
+            
             ReservationInfoItemView(
                 title: Constants.nutrition,
                 info: nutrition
@@ -289,15 +325,18 @@ private struct TourInfoView: View {
     }
 }
 
+// Секция для отображения элемента стоимости
 private struct PriceItemView: View {
     let title: String
     let price: Int
     
     var body: some View {
         HStack {
+            // Заголовок и стоимость
             Text(title)
                 .foregroundStyle(Color.customDarkGray)
                 .frame(maxWidth: 150, alignment: .leading)
+            
             Text("\(price) \(String.currency)")
                 .foregroundStyle(.black)
                 .frame(maxWidth: .infinity, alignment: .trailing)
@@ -305,15 +344,18 @@ private struct PriceItemView: View {
     }
 }
 
+// Секция для отображения элемента информации о бронировании
 private struct ReservationInfoItemView: View {
     let title: String
     let info: String
     
     var body: some View {
         HStack {
+            // Заголовок и информация
             Text(title)
                 .foregroundStyle(Color.customDarkGray)
                 .frame(maxWidth: 150, alignment: .leading)
+            
             Text(info)
                 .foregroundStyle(.black)
                 .frame(maxWidth: .infinity, alignment: .leading)

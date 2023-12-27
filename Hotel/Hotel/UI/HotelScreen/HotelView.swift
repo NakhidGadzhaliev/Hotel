@@ -13,12 +13,16 @@ struct HotelView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             if viewModel.isLoading {
+                // Показывать индикатор загрузки, если данные загружаются
                 ProgressView(Constants.pageLoading)
             } else if let _ = viewModel.error {
+                // Показывать экран ошибки, если загрузка завершилась с ошибкой
                 FailView()
             } else {
+                // Показывать основной интерфейс с данными отеля
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 8) {
+                        // Верхняя часть с изображением, рейтингом и основной информацией
                         VStack(alignment: .leading, spacing: 16) {
                             ImageSlider(imageUrls: viewModel.hotel.imageUrls)
                             MainInfoView(
@@ -36,6 +40,7 @@ struct HotelView: View {
                                 .foregroundStyle(.white)
                         )
                         
+                        // Детальная информация об отеле
                         DetailInfoView(
                             peculiarities: viewModel.hotel.aboutTheHotel.peculiarities,
                             description: viewModel.hotel.aboutTheHotel.description
@@ -45,6 +50,8 @@ struct HotelView: View {
                     .background(Color.customGray)
                 }
                 .padding(.bottom, 60)
+                
+                // Кнопка для перехода к выбору номера
                 ZStack {
                     PrimaryButton(
                         title: Constants.chooseNumber,
@@ -57,32 +64,37 @@ struct HotelView: View {
             }
         }
         .onAppear {
+            // Загружать данные об отеле при появлении экрана
             viewModel.fetchHotel()
         }
     }
 }
 
+// Детальная информация об отеле
 private struct DetailInfoView: View {
     let peculiarities: [String]
     let description: String
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
+            // Заголовок "О гостинице"
             Text(Constants.aboutHotel)
                 .font(Font.Medium.m22)
                 .foregroundStyle(.black)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.bottom, 16)
             
+            // Особенности гостиницы
             PeculiaritiesView(peculiarities: peculiarities)
                 .padding(.bottom, 12)
             
+            // Описание гостиницы
             Text(description)
                 .font(Font.Default.d16)
                 .foregroundStyle(.black.opacity(0.9))
             
+            // Дополнительная информация
             AdditionalInfoView()
-            
         }
         .padding(16)
         .background(
@@ -93,9 +105,11 @@ private struct DetailInfoView: View {
     }
 }
 
+// Вид для дополнительной информации
 private struct AdditionalInfoView: View {
     var body: some View {
         VStack(spacing: 0) {
+            // Элементы дополнительной информации
             AdditionalInfoItemView(
                 icon: Image(asset: .emojiHappy),
                 title: Constants.facilities,
@@ -123,6 +137,7 @@ private struct AdditionalInfoView: View {
     }
 }
 
+// Элемент дополнительной информации
 private struct AdditionalInfoItemView: View {
     let icon: Image
     let title: String
@@ -130,13 +145,16 @@ private struct AdditionalInfoItemView: View {
     
     var body: some View {
         ZStack(alignment: .leading) {
+            // Фон элемента
             RoundedRectangle(cornerRadius: 15)
                 .foregroundStyle(.customLightGray)
+            // Содержимое элемента
             HStack(alignment: .center, spacing: 12) {
                 icon
                     .resizable()
                     .frame(width: 24, height: 24)
                 VStack(alignment: .leading, spacing: 2) {
+                    // Заголовок и описание элемента
                     Text(title)
                         .font(Font.Medium.m16)
                         .foregroundStyle(.black)
@@ -145,6 +163,7 @@ private struct AdditionalInfoItemView: View {
                         .foregroundStyle(.customDarkGray)
                 }
                 Spacer()
+                // Стрелка вправо для указания возможности перехода
                 Image(systemSymbol: .chevronRight)
             }
             .padding(.horizontal, 31)
@@ -153,6 +172,7 @@ private struct AdditionalInfoItemView: View {
     }
 }
 
+// Главная информация об отеле
 private struct MainInfoView: View {
     let rating: Int
     let ratingName: String
@@ -163,6 +183,7 @@ private struct MainInfoView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
+            // Вид с информацией о гостинице (название, адрес, рейтинг)
             AboutHotelView(
                 name: name,
                 address: address,
@@ -170,10 +191,12 @@ private struct MainInfoView: View {
                 ratingName: ratingName
             )
             
+            // Цена за проживание
             Text("\(Constants.from) \(price) \(String.currency) ")
                 .font(Font.Semibold.s30)
                 .foregroundStyle(.black)
             +
+            // Дополнительная информация о цене
             Text(priceForIt.lowercased())
                 .foregroundStyle(Color.customDarkGray)
                 .font(Font.Default.d16)

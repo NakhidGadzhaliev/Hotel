@@ -8,7 +8,9 @@
 import SwiftUI
 import Combine
 
+// ViewModel для экрана оформления бронирования
 final class ReservationViewModel: ObservableObject {
+    // Опубликованные свойства для обновления интерфейса
     @Published var reservation = Reservation(
         id: .zero,
         hotelName: .empty,
@@ -46,15 +48,18 @@ final class ReservationViewModel: ObservableObject {
     private let coordinator: ReservationCoordinator
     private let networkManager: NetworkManager
     
+    // Инициализатор класса
     init(coordinator: ReservationCoordinator, networkManager: NetworkManager) {
         self.coordinator = coordinator
         self.networkManager = networkManager
     }
     
+    // Метод для открытия экрана успешного бронирования
     func openSuccessScreen() {
         coordinator.openSuccessScreen()
     }
     
+    // Метод для загрузки данных о бронировании
     func fetchReservation() {
         isLoading = true
         
@@ -74,6 +79,7 @@ final class ReservationViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    // Метод для добавления нового туриста
     func addTourist() {
         let newElement = Tourist(
             number: "\(numberString(for: tourists.count)) \(Constants.tourist)",
@@ -87,14 +93,17 @@ final class ReservationViewModel: ObservableObject {
         tourists.append(newElement)
     }
     
+    // Метод для проверки валидности email
     func isEmailValid(_ value: String) -> Bool {
         Validator.isEmailValid(value)
     }
     
+    // Метод для проверки валидности номера телефона
     func isPhoneNumberValid(_ value: String) -> Bool {
         Validator.isPhoneNumberValid(value)
     }
     
+    // Метод для формирования строки с порядковым номером туриста
     private func numberString(for index: Int) -> String {
         let number = index + 1
         switch number {
