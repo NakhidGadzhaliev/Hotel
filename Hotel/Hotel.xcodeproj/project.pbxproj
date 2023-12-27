@@ -44,6 +44,7 @@
 		D0DF0DA92B2E1BE500DA7C32 /* Image + SystemImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF0DA82B2E1BE500DA7C32 /* Image + SystemImage.swift */; };
 		D0E4E3532B33429400374A1C /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E4E3522B33429400374A1C /* Validator.swift */; };
 		D0EF7D052B3B5A84004FD36E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EF7D042B3B5A84004FD36E /* Constants.swift */; };
+		D0EF7D252B3BB8AD004FD36E /* DateFormatter + Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EF7D242B3BB8AD004FD36E /* DateFormatter + Custom.swift */; };
 		D0FB2D872B2C84E1008818DF /* RoomCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB2D822B2C84E1008818DF /* RoomCoordinator.swift */; };
 		D0FB2D882B2C84E1008818DF /* RoomFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB2D832B2C84E1008818DF /* RoomFactory.swift */; };
 		D0FB2D892B2C84E1008818DF /* RoomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB2D842B2C84E1008818DF /* RoomController.swift */; };
@@ -100,6 +101,7 @@
 		D0DF0DA82B2E1BE500DA7C32 /* Image + SystemImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image + SystemImage.swift"; sourceTree = "<group>"; };
 		D0E4E3522B33429400374A1C /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		D0EF7D042B3B5A84004FD36E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D0EF7D242B3BB8AD004FD36E /* DateFormatter + Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter + Custom.swift"; sourceTree = "<group>"; };
 		D0FB2D822B2C84E1008818DF /* RoomCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCoordinator.swift; sourceTree = "<group>"; };
 		D0FB2D832B2C84E1008818DF /* RoomFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomFactory.swift; sourceTree = "<group>"; };
 		D0FB2D842B2C84E1008818DF /* RoomController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomController.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				D0A5736A2B30D54A0088B56A /* String + Symbols.swift */,
 				D016D9E72B3B3ACB0089463C /* LayoutSubviewsElement + MaxHeigh.swift */,
 				D016D9EA2B3B3F420089463C /* Binding + MaxLength.swift */,
+				D0EF7D242B3BB8AD004FD36E /* DateFormatter + Custom.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 				D0FB2D872B2C84E1008818DF /* RoomCoordinator.swift in Sources */,
 				D0FB2D982B2CA8D7008818DF /* ReservationController.swift in Sources */,
 				D0FB2D8D2B2C964B008818DF /* Room.swift in Sources */,
+				D0EF7D252B3BB8AD004FD36E /* DateFormatter + Custom.swift in Sources */,
 				D0B85ECD2B2B77370083E306 /* HotelFactory.swift in Sources */,
 				D0FB2D972B2CA8D7008818DF /* ReservationFactory.swift in Sources */,
 				D0B85ECE2B2B77370083E306 /* HotelController.swift in Sources */,

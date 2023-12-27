@@ -19,7 +19,7 @@ struct Tourist: Identifiable {
 
     func areFieldsValid() -> Bool {
         Validator.isTextValid(name) && Validator.isTextValid(lastName) &&
-        Validator.isDateValid(birthDate) && Validator.isTextValid(citizenship) &&
-        Validator.isPassportNumberValid(passportNumber) && Validator.isDateValid(passportExpirationDate)
+        Validator.isBirthDateValid(birthDate) && Validator.isTextValid(citizenship) &&
+        Validator.isPassportNumberValid(passportNumber) && Validator.isExpirationDateValid(passportExpirationDate)
     }
 }

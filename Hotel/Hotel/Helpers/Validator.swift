@@ -9,6 +9,8 @@ import Foundation
 
 // Структура Validator для проверки валидности различных типов данных
 struct Validator {
+    private static let currentDate = Date()
+    private static let calendar = Calendar.current
     // Проверка валидности текстового значения
     static func isTextValid(_ value: String) -> Bool {
         // Проверяем, что значение состоит только из букв и имеет длину более 2 символов
@@ -16,11 +18,37 @@ struct Validator {
         let isOnlyLetters = value.rangeOfCharacter(from: letters.inverted) == nil
         return isOnlyLetters && value.count > 2
     }
+    // Проверяем, валидны ли данные о дате рождения
+    static func isBirthDateValid(_ date: String) -> Bool {
+        guard let enteredDate = DateFormatter.customDateFormatter.date(from: date) else {
+            return false
+        }
+        
+        let minimumAllowedDate = calendar.date(byAdding: .year, value: -90, to: currentDate)
+        let maximumAllowedDate = currentDate
+        
+        guard let minDate = minimumAllowedDate else {
+            return false
+        }
+        
+        return enteredDate >= minDate && enteredDate <= maximumAllowedDate
+    }
     
-    // Проверка валидности даты
-    static func isDateValid(_ value: String) -> Bool {
-        // Проверяем, что дата имеет заданную длину
-        return value.count == Constants.dateMaskCount
+    // Проверяем, валидны ли данные о дате истечения срока паспорта
+    static func isExpirationDateValid(_ date: String) -> Bool {
+        guard let enteredDate = DateFormatter.customDateFormatter.date(from: date) else {
+            return false
+        }
+        
+        let minimumAllowedDate = calendar.date(byAdding: .month, value: +6, to: currentDate)
+        let maximumAllowedDate = calendar.date(byAdding: .year, value: +20, to: currentDate)
+        
+        guard let minDate = minimumAllowedDate,
+              let maxDate = maximumAllowedDate else {
+            return false
+        }
+        
+        return enteredDate >= minDate && enteredDate <= maxDate
     }
     
     // Проверка валидности номера паспорта

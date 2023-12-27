@@ -35,7 +35,7 @@ struct TouristInfoView: View {
                     DateTextField(
                         text: $tourist.birthDate,
                         title: Constants.birthDate,
-                        isValidated: Validator.isDateValid(tourist.birthDate),
+                        isValidated: Validator.isBirthDateValid(tourist.birthDate),
                         mask: Constants.dateMask
                     )
                     
@@ -55,7 +55,7 @@ struct TouristInfoView: View {
                     DateTextField(
                         text: $tourist.passportExpirationDate,
                         title: Constants.passportExporationDate,
-                        isValidated: Validator.isDateValid(tourist.passportExpirationDate),
+                        isValidated: Validator.isExpirationDateValid(tourist.passportExpirationDate),
                         mask: Constants.dateMask
                     )
                 }
