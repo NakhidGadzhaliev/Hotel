@@ -25,13 +25,14 @@ struct Validator {
         }
         
         let minimumAllowedDate = calendar.date(byAdding: .year, value: -90, to: currentDate)
-        let maximumAllowedDate = currentDate
+        let maximumAllowedDate = calendar.date(byAdding: .year, value: -18, to: currentDate)
         
-        guard let minDate = minimumAllowedDate else {
+        guard let minDate = minimumAllowedDate,
+              let maxDate = maximumAllowedDate else {
             return false
         }
         
-        return enteredDate >= minDate && enteredDate <= maximumAllowedDate
+        return enteredDate >= minDate && enteredDate <= maxDate
     }
     
     // Проверяем, валидны ли данные о дате истечения срока паспорта
