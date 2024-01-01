@@ -92,14 +92,7 @@ struct ReservationView: View {
     // Секция с информацией о бронировании
     var reservationInfoSection: some View {
         TourInfoView(
-            departure: viewModel.reservation.departure,
-            arrivalCountry: viewModel.reservation.arrivalCountry,
-            startDate: viewModel.reservation.tourDateStart,
-            endDate: viewModel.reservation.tourDateStop,
-            numberOfNights: viewModel.reservation.numberOfNights,
-            hotelName: viewModel.reservation.hotelName,
-            room: viewModel.reservation.room,
-            nutrition: viewModel.reservation.nutrition
+            reservation: viewModel.reservation
         )
     }
     
@@ -169,7 +162,7 @@ private struct TotalPriceView: View {
                     .foregroundStyle(Color.customDarkGray)
                     .frame(maxWidth: 150, alignment: .leading)
                 
-                Text("\(totalPriceCounter()) \(String.currency)")
+                Text("\(totalPriceCounter().formattedWithSeparator) \(String.currency)")
                     .font(Font.Semibold.s16)
                     .foregroundStyle(.customBlue)
                     .frame(maxWidth: .infinity, alignment: .trailing)
@@ -270,51 +263,44 @@ private struct AddTouristSectionView: View {
 
 // Секция с информацией о туре
 private struct TourInfoView: View {
-    let departure: String
-    let arrivalCountry: String
-    let startDate: String
-    let endDate: String
-    let numberOfNights: Int
-    let hotelName: String
-    let room: String
-    let nutrition: String
+    let reservation: Reservation
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             // Отображение информации о туре
             ReservationInfoItemView(
                 title: Constants.departure,
-                info: departure
+                info: reservation.departure
             )
             
             ReservationInfoItemView(
                 title: Constants.arrivalCountry,
-                info: arrivalCountry
+                info: reservation.arrivalCountry
             )
             
             ReservationInfoItemView(
                 title: Constants.date,
-                info: startDate + " \(String.minus) " + endDate
+                info: reservation.tourDateStart + " \(String.minus) " + reservation.tourDateStop
             )
             
             ReservationInfoItemView(
                 title: Constants.numberOfNights,
-                info: "\(numberOfNights)"
+                info: "\(reservation.numberOfNights)"
             )
             
             ReservationInfoItemView(
                 title: Constants.hotel,
-                info: hotelName
+                info: reservation.hotelName
             )
             
             ReservationInfoItemView(
                 title: Constants.room,
-                info: room
+                info: reservation.room
             )
             
             ReservationInfoItemView(
                 title: Constants.nutrition,
-                info: nutrition
+                info: reservation.nutrition
             )
         }
         .padding(16)
@@ -337,7 +323,7 @@ private struct PriceItemView: View {
                 .foregroundStyle(Color.customDarkGray)
                 .frame(maxWidth: 150, alignment: .leading)
             
-            Text("\(price) \(String.currency)")
+            Text("\(price.formattedWithSeparator) \(String.currency)")
                 .foregroundStyle(.black)
                 .frame(maxWidth: .infinity, alignment: .trailing)
         }

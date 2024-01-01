@@ -193,7 +193,7 @@ private struct MainInfoView: View {
             )
             
             // Цена за проживание
-            Text("\(Constants.from) \(price) \(String.currency) ")
+            Text("\(Constants.from) \(price.formattedWithSeparator) \(String.currency) ")
                 .font(Font.Semibold.s30)
                 .foregroundStyle(.black)
             +

@@ -80,7 +80,7 @@ private struct RoomItemView: View {
             .disabled(true)
             
             // Цена за проживание
-            Text("\(room.price) \(String.currency) ")
+            Text("\(room.price.formattedWithSeparator) \(String.currency) ")
                 .font(Font.Semibold.s30)
                 .foregroundStyle(.black)
             +

@@ -75,23 +75,10 @@ private struct TouristDisclosureStyle: DisclosureGroupStyle {
                 // Заголовок
                 configuration.label
                 Spacer()
-                ZStack {
-                    // Иконка открытия/закрытия
-                    RoundedRectangle(cornerRadius: 6)
-                        .frame(width: 32, height: 32)
-                        .foregroundStyle(.customLightBlue)
-                    if configuration.isExpanded {
-                        DisclosureIconView(image: .chevronUp)
-                            .onTapGesture {
-                                configuration.isExpanded.toggle()
-                            }
-                    } else {
-                        DisclosureIconView(image: .chevronDown)
-                            .onTapGesture {
-                                configuration.isExpanded.toggle()
-                            }
-                    }
-                }
+                DisclosureIconView(
+                    isButtonTapped: configuration.$isExpanded,
+                    image: configuration.isExpanded ? .chevronUp : .chevronDown
+                )
             }
             
             // Дополнительные данные при раскрытии
@@ -104,12 +91,23 @@ private struct TouristDisclosureStyle: DisclosureGroupStyle {
 
 // Иконка для открытия/закрытия
 private struct DisclosureIconView: View {
+    @Binding var isButtonTapped: Bool
     let image: SFSymbolIdentifier
     
     var body: some View {
-        Image(systemSymbol: image)
-            .resizable()
-            .frame(width: 12, height: 6)
-            .foregroundStyle(.customBlue)
+        Button {
+            isButtonTapped.toggle()
+        } label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 6)
+                    .frame(width: 32, height: 32)
+                    .foregroundStyle(.customLightBlue)
+                
+                Image(systemSymbol: image)
+                    .resizable()
+                    .frame(width: 12, height: 6)
+                    .foregroundStyle(.customBlue)
+            }
+        }
     }
 }
